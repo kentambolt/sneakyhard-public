@@ -1550,6 +1550,13 @@
   #game.sip .actions .btn { min-height:44px; padding:8px 12px; flex:1; }
 
   /* Object-shaped selection and room for labels on compact diagram cards. */
+  .site-idea { max-width:62ch; margin:0; border:1px solid var(--line); border-radius:12px; background:var(--panel); text-align:left; }
+  .site-idea summary { padding:12px 16px; cursor:pointer; color:var(--text); font:500 14px/1.4 var(--sans); }
+  .site-idea summary:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:8px; }
+  .site-idea[open] summary { border-bottom:1px solid var(--line); }
+  .site-idea > div { padding:14px 16px 16px; display:grid; gap:12px; }
+  .site-idea p { margin:0; color:var(--muted); font:400 15px/1.55 var(--sans); }
+  .site-idea p:first-child { color:var(--text); font-weight:600; }
   .grain-mode .grain-touch::before,.grain-mode .grain-touch.grain-selected::after { display:none; }
   .grain-mode .grain-touch:focus-visible { outline:2px dashed var(--amber); outline-offset:-10px; border-radius:6px; }
   .halfway-mode .cell.tile { height:22%; }
@@ -1564,7 +1571,15 @@
     <header class="hero">
       <h1 class="brand">Sneaky<em>Hard</em></h1>
       <p class="eyebrow" id="catalogTotal"></p>
-      <p class="lede">Small boards. Simple rules. Sneaky little traps. Find your next puzzle.</p>
+      <p class="lede">Few pieces. Simple rules. Deep challenges.</p>
+      <details class="site-idea">
+        <summary>The idea behind SneakyHard</summary>
+        <div>
+          <p>How much challenge can fit into the fewest possible pieces and rules?</p>
+          <p>That question drives SneakyHard: tiny boards, small sets of pieces and simple mechanics that you can grasp at a glance — and think about for a long time.</p>
+          <p>The ambition is to bring AI and machine learning together with human logic, intuition and careful testing. Explore possibilities, uncover hidden traps, play, and refine. Every piece and every rule should earn its place.</p>
+        </div>
+      </details>
       <div class="home-actions"><button class="home-action" id="continueGame" type="button" hidden></button><button class="home-action" id="startHere" type="button">Start here · One Path →</button></div>
       <p class="catalog-note">Your progress stays on this device.</p>
     </header>
