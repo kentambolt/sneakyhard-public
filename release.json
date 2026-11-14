@@ -2,5 +2,8 @@
   "format": 1,
   "games": 5,
   "levels": 45,
-  "htmlSha256": "4f9a9ab6de38474f6af2b0e240253c5f7235368facfb74a3016d0b6ee15a1687"
+  "htmlSha256": "114cad20ba05af929adcc7dd41610d0a2fd81a1469733234ccd00d05298457a7",
+  "localized": {
+    "da/index.html": "689efdc69e0034d2aa0436515179b1ec971f8ab69cf115586735073a46d573af"
+  }
 }
