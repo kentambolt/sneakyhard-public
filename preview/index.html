@@ -1549,6 +1549,15 @@
 .polygon-actions{display:flex;gap:6px;justify-content:center}
 .polygon-actions button{flex:1;padding:8px 5px;min-height:42px}
 .board.trade-mode{aspect-ratio:var(--w)/var(--h);gap:4px;background:transparent;border:0}
+/* Designer-approved pieces: gradient discs with a soft inner light; pieces that cannot move right now are dimmed. */
+.trade-token svg{width:70%;height:70%;overflow:visible;display:block}
+.trade-mode .trade-token{color:#fff;box-shadow:inset 0 2px 2px #ffffff26,inset 0 -3px 4px #00000020,0 4px 10px #0003}
+.trade-mode .trade-token.trade-group-0{background:linear-gradient(145deg,#58addf,#235b87)}
+.trade-mode .trade-token.trade-group-1{background:linear-gradient(145deg,#f49d51,#b0521d)}
+.trade-mode .trade-token.trade-group-2{background:linear-gradient(145deg,#5cc7a4,#1f6b55)}
+.trade-mode .trade-token.trade-group-3{background:linear-gradient(145deg,#b48ae0,#5d3a80)}
+.trade-mode .trade-fixed .trade-token{opacity:.43;box-shadow:none}
+.board.won .trade-fixed .trade-token{opacity:1}
 .trade-mode .tile{background:transparent;border:1px solid color-mix(in srgb,var(--muted) 28%,transparent);border-radius:8px;overflow:visible}
 .trade-token,.trade-target{position:absolute;inset:13%;display:grid;place-items:center;pointer-events:none}
 .trade-token{background:var(--trade-colour);color:#fff;font:700 clamp(12px,4vw,23px)/1 system-ui;border:2px solid transparent;box-shadow:0 2px 3px #0002}
@@ -1570,6 +1579,11 @@
 .trade-mode .hole{visibility:hidden}
 .preview-feedback{display:block;width:max-content;margin:18px auto 0;padding:6px 10px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--panel);font:11px/1.3 var(--mono);text-decoration:none}body:has(#game:not([hidden])) > .preview-feedback{position:fixed;right:8px;bottom:3px;margin:0;font-size:10px;padding:4px 7px;z-index:5}
 @media(min-width:500px) and (max-height:500px){#game.swap .board-wrap{height:auto;width:min(calc(100% - var(--compact-side-width) - 12px),calc((100dvh - 145px)*var(--trade-aspect)));max-width:calc(100% - var(--compact-side-width) - 12px);aspect-ratio:var(--trade-aspect);container-type:inline-size}#game.swap .board{width:100%;height:auto;max-height:none;aspect-ratio:var(--trade-aspect)}}
+/* Trade Places: the same cell size on every level. The wrap keeps one width; the cell fits the game's widest
+   (--trade-max-w) and tallest (--trade-max-h) boards within that width and the height left for the board. */
+#game.swap .board-wrap{width:min(100%,var(--compact-max-width));max-width:none;height:auto;aspect-ratio:auto;flex:none;container-type:inline-size;--trade-room:calc(100dvh - 235px)}
+#game.swap .board.trade-mode{--trade-cell:min(calc((100cqw - (var(--trade-max-w) - 1) * 4px) / var(--trade-max-w)),calc((var(--trade-room) - (var(--trade-max-h) - 1) * 4px) / var(--trade-max-h)));width:calc(var(--w) * var(--trade-cell) + (var(--w) - 1) * 4px);height:calc(var(--h) * var(--trade-cell) + (var(--h) - 1) * 4px);max-height:none;aspect-ratio:auto;flex:none}
+@media(min-width:500px) and (max-height:500px){#game.swap .board-wrap{width:calc(100% - var(--compact-side-width) - 12px);max-width:calc(100% - var(--compact-side-width) - 12px);--trade-room:calc(100dvh - 145px)}}
 .mini.square-mini,.mini.swap-mini{display:block;aspect-ratio:5/3}.mini.square-mini svg,.mini.swap-mini svg{width:100%;height:100%}
 #game.square .polygon-actions .btn,#game.square .actions .btn,#game.swap .actions .btn{min-width:0}
 .card{text-decoration:none}
@@ -1793,6 +1807,10 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 .chip[aria-current="true"] { border-color: var(--accent-purple); background: var(--accent-purple); color: var(--on-accent); }
 .chip.solved::after { right: -4px; top: -4px; width: 14px; height: 14px; border: 2px solid var(--bg-primary); background: var(--good) url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20d%3D%22M3%206.2%205%208.2%209%204%22%20fill%3D%22none%22%20stroke%3D%22%231A1726%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E") center / 10px no-repeat; }
 .difficulty-select { border-radius: var(--radius-pill); }
+#game .levels:has(.difficulty-group) { flex-wrap: wrap; overflow: visible; row-gap: 8px; column-gap: 16px; }
+#game .levels .difficulty-group { flex-wrap: wrap; row-gap: 8px; }
+#game .levels .difficulty-group[data-difficulty="Challenge"] .chip:not([aria-current="true"]) { background: color-mix(in srgb, var(--accent-purple) 12%, var(--bg-secondary)); }
+#game .levels .difficulty-group[data-difficulty="Expert"] .chip:not([aria-current="true"]) { background: color-mix(in srgb, var(--accent-purple) 26%, var(--bg-secondary)); }
 .btn { border-color: var(--border-subtle); border-radius: var(--radius-pill); background: var(--bg-secondary); font-family: var(--sans); font-weight: 700; transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast); }
 .btn:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
 .btn:active:not(:disabled) { transform: translateY(1px); }
@@ -7391,16 +7409,20 @@ const LEVELS_SWAP = [
   }
 
   // ---------- level ----------
+  // Trade Places direction icon (designer's approved style): one filled arrow per allowed direction, each starting
+  // at a small shared centre gap. A single direction is one full-length arrow; unbalanced sets are optically centred.
+  function tradeArrowIcon(el,arrows){
+    if(el.tradeArrows===arrows)return;el.tradeArrows=arrows;
+    const dirs=['↑','→','↓','←'].map((a,d)=>arrows.includes(a)?d:-1).filter(d=>d>=0);
+    const shaft=dirs.length===1?72:37,arm=d=>`<path transform="rotate(${d*90} 40 40)" d="M40 8 L28 24 H35.6 V${shaft} H44.4 V24 H52 Z"/>`;
+    const sx=dirs.length>1?dirs.reduce((a,d)=>a+[0,1,0,-1][d],0):0,sy=dirs.length>1?dirs.reduce((a,d)=>a+[-1,0,1,0][d],0):0;
+    el.innerHTML=dirs.length?`<svg viewBox="0 0 80 80" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(${-sx*10} ${-sy*10})">${dirs.map(arm).join('')}</g></svg>`:'';
+  }
   function renderLevelNav() {
     const nav = $('levels');
     nav.textContent = '';
     nav.setAttribute('aria-label',game.levelLabel?'Choose piece count':'Levels');
     const solved = getSolved(game), groups = new Map();
-    if(game.difficulty){
-      const select=document.createElement('select');select.setAttribute('aria-label','Difficulty');select.className='difficulty-select';
-      for(const name of ['Learn','Challenge','Expert'].filter(name=>game.levels.some(lv=>lv.difficulty===name))){const option=document.createElement('option');option.value=name;option.textContent=name;select.appendChild(option);}select.value=game.levels[li].difficulty||'Challenge';
-      select.addEventListener('change',()=>{const group=game.levels.map((lv,i)=>({lv,i})).filter(x=>x.lv.difficulty===select.value),next=group.find(x=>!solved.has(x.lv.id))||group[0];if(next)loadLevel(next.i);});nav.appendChild(select);
-    }
     game.levels.forEach((lv, i) => {
       const key = (typeof game.levelGroup==='function'?game.levelGroup(lv):game.levelGroup) || (lv.cols && lv.depth ? `${lv.cols}×${lv.depth} stacks` : lv.labels ? `${lv.labels.length} cases` : lv.panelSize ? `${lv.panelSize}×${lv.panelSize} · pair` : `${lv.w}×${lv.h}`);
       if (!groups.has(key)) groups.set(key, []);
@@ -7409,7 +7431,8 @@ const LEVELS_SWAP = [
     for (const [key, idxs] of groups) {
       const g = document.createElement('div');
       g.className = 'group';
-      if(game.difficulty)g.hidden=key!==game.levels[li].difficulty;
+      // Difficulty games show every level in one continuous run; each difficulty is a subtly tinted, spaced group.
+      if(game.difficulty){g.classList.add('difficulty-group');g.setAttribute('data-difficulty',key);}
       const lab = document.createElement('span');
       lab.className = 'group-label';
       lab.textContent = key;
@@ -7420,8 +7443,10 @@ const LEVELS_SWAP = [
         btn.type = 'button';
         const done = solved.has(game.levels[i].id);
         btn.className = 'chip' + (done ? ' solved' : '');
-        btn.textContent = game.levelLabel?game.levelLabel(lv):String(k + 1);
-        btn.setAttribute('aria-label', (game.levelAria?game.levelAria(lv):`${key}, level ${k + 1}`)+(done?' (solved)':''));
+        const number = game.difficulty ? i + 1 : k + 1;
+        btn.textContent = game.levelLabel?game.levelLabel(lv):String(number);
+        btn.setAttribute('aria-label', (game.levelAria?game.levelAria(lv):`${key}, level ${number}`)+(done?' (solved)':''));
+        if(game.difficulty)btn.title=`${key} · ${number}`;
         if (i === li) btn.setAttribute('aria-current', 'true');
         btn.addEventListener('click', () => loadLevel(i));
         g.appendChild(btn);
@@ -7451,6 +7476,7 @@ const LEVELS_SWAP = [
     $('pivotSymbols').hidden=!G.pivotMode;board.style.setProperty('--pivot-aspect',G.boardAspect||1.5);board.style.setProperty('--pivot-node-width',((.46/(G.boardAspect?G.boardAspect*2:3))*100)+'%');$('game').classList.toggle('pivot-triple',!!G.pivotMode&&G.options.length===3);
     board.style.setProperty('--w', lv.w);
     board.style.setProperty('--h', lv.h);
+    if(G.tradeMode){board.style.setProperty('--trade-max-w',String(Math.max(...game.levels.map(l=>l.w))));board.style.setProperty('--trade-max-h',String(Math.max(...game.levels.map(l=>l.h))));}else{board.style.setProperty('--trade-max-w','');board.style.setProperty('--trade-max-h','');}
     board.style.setProperty('--step', `${Math.max(18, Math.round(1100 / G.B.n))}ms`);
     board.textContent = '';
     board.classList.remove('won', 'stuck');
@@ -8126,7 +8152,7 @@ const LEVELS_SWAP = [
         cells[c].classList.toggle('relay-special',!!s.symbol);cells[c].classList.toggle('relay-source-node',s.source);cells[c].classList.toggle('relay-fixed',s.source||s.receiver>0);cells[c].classList.toggle('relay-source-powered',s.sourcePower>=0&&!boost);cells[c].classList.toggle('relay-boosted',boost);cells[c].classList.toggle('relay-inactive',s.relay&&!s.powered);
         cells[c].setAttribute('aria-label',`${s.source?'Source S':s.receiver?'Receiver '+s.symbol:s.relay?'Relay':'Free wire tile'}, row ${Math.floor(c/G.B.w)+1}, column ${c%G.B.w+1}, ${s.strength>=0?s.strength+' links remaining':'no signal'}${s.relay&&!s.powered?', relay unpowered':''}`);
       }
-      if(sc.tradeCells&&G.B.type[c]){const t=sc.tradeCells[c],colours=['#2879a0','#b55b27','#287b68','#8353a0'],el=cells[c],target=el.children[0],token=el.children[1];target.className='trade-target trade-group-'+t.goal;target.hidden=true;target.style.setProperty('--trade-colour',colours[t.goal]||'transparent');token.className='trade-token trade-group-'+t.group;token.hidden=t.group<0;token.textContent=t.arrows;token.style.setProperty('--trade-colour',colours[t.group]||'transparent');el.classList.remove('trade-ready');el.classList.toggle('trade-selected',t.selected);el.classList.remove('trade-correct');el.setAttribute('aria-label',t.aria);}
+      if(sc.tradeCells&&G.B.type[c]){const t=sc.tradeCells[c],colours=['#2879a0','#b55b27','#287b68','#8353a0'],el=cells[c],target=el.children[0],token=el.children[1];target.className='trade-target trade-group-'+t.goal;target.hidden=true;target.style.setProperty('--trade-colour',colours[t.goal]||'transparent');token.className='trade-token trade-group-'+t.group;token.hidden=t.group<0;tradeArrowIcon(token,t.arrows);token.style.setProperty('--trade-colour',colours[t.group]||'transparent');el.classList.remove('trade-ready');el.classList.toggle('trade-movable',!!t.movable&&t.group>=0);el.classList.toggle('trade-fixed',!t.movable&&t.group>=0);el.classList.toggle('trade-selected',t.selected);el.classList.remove('trade-correct');el.setAttribute('aria-label',t.aria);}
       cells[c].style.setProperty('--i', sc.order[c]);
     }
     if(sc.halfway){sc.halfway.wires.forEach((w,i)=>{const line=ink.halfway.wires[i];for(const [k,v]of Object.entries({x1:w.from.x,y1:w.from.y,x2:w.to.x,y2:w.to.y,opacity:w.active?1:0}))line.setAttribute(k,v);line.setAttribute('visibility',w.active?'visible':'hidden');line.setAttribute('class','half-wire half-wire-'+i+(w.selected?' selected':''));});ink.halfway.dots.forEach((dot,i)=>{const p=sc.halfway.crossings[i];dot.setAttribute('visibility',p?'visible':'hidden');dot.setAttribute('opacity',p?1:0);if(p){dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);dot.setAttribute('r',p.above?.04:.025);dot.setAttribute('class','half-dot'+(p.above?' above':''));dot.setAttribute('data-pair',p.a+','+p.b);}});}
