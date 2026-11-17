@@ -7437,9 +7437,9 @@ function animateTradeMove(sc){
 function tradeArrowIcon(el,arrows){
     if(el.tradeArrows===arrows)return;el.tradeArrows=arrows;
     const dirs=['↑','→','↓','←'].map((a,d)=>arrows.includes(a)?d:-1).filter(d=>d>=0);
-    const shaft=dirs.length===1?72:37,arm=d=>`<path transform="rotate(${d*90} 40 40)" d="M40 8 L28 24 H35.6 V${shaft} H44.4 V24 H52 Z"/>`;
-    const sx=dirs.length>1?dirs.reduce((a,d)=>a+[0,1,0,-1][d],0):0,sy=dirs.length>1?dirs.reduce((a,d)=>a+[-1,0,1,0][d],0):0;
-    el.innerHTML=dirs.length?`<svg viewBox="0 0 80 80" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(${-sx*10} ${-sy*10})">${dirs.map(arm).join('')}</g></svg>`:'';
+    const shaft=dirs.length===1?72:44.4,arm=d=>`<path transform="rotate(${d*90} 40 40)" d="M40 8 L28 24 H35.6 V${shaft} H44.4 V24 H52 Z"/>`;
+    // Arms meet exactly at the token centre (40,40); no optical shift of the icon as a whole.
+    el.innerHTML=dirs.length?`<svg viewBox="0 0 80 80" aria-hidden="true" focusable="false" fill="currentColor">${dirs.map(arm).join('')}</svg>`:'';
   }
   function renderLevelNav() {
     const nav = $('levels');
