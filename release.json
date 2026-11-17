@@ -2,8 +2,24 @@
   "format": 1,
   "games": 7,
   "levels": 68,
-  "htmlSha256": "a91265230bc039363bec79e80d160d73597f668f9ef9b84f73d889410a6036d7",
+  "htmlSha256": "711d3942864a31cc384501afc84c7d635867c89742ca3b30b25ff65f05bad6b1",
   "localized": {
-    "da/index.html": "6bb9dde3914c42d8743f87cd5e0c2dfaf156d76762290ba11309a2862f442890"
+    "da/index.html": "9c4ff0d93a6b271f7b5b78fdcfe20e02bf9abc46cfef967050ad901f2a593159"
+  },
+  "guides": {
+    "square-one/index.html": "20da862dafa4d4c95b62b8a6037ec787e61f3d074088deb9a9b9e980313fed28",
+    "da/square-one/index.html": "d381c547d0c8f88ce02e67071ccadcc367bb5f50e782ad03694a7bd8b2086b4e",
+    "trade-places/index.html": "ca57371bfd723c9cda38848a7b4071ab9d0a6c7a332a01a8cc7682f388d4ca22",
+    "da/trade-places/index.html": "55149e3555f8b70e961e76312b6170d1870a9d29dd974490b3e1049f93fd9330",
+    "one-path/index.html": "84f60c93633258d8d20fa4b609b7e3f38d38e67124b07439737f06c2b023706b",
+    "da/one-path/index.html": "ce5ead215c619f3952883e433225fc23af285a3c5755e602f4dd08f38307d3af",
+    "lockstep/index.html": "518cc836c5a97ff8b788b105a1fd3cef6e6b85e0b3b626cc6feda02eb6751ed4",
+    "da/lockstep/index.html": "385fe8e424265b1b0123df90834bd13d12b683971cc55ce107cfee6831b5e58a",
+    "black-ice/index.html": "311544ae8f88afbc9344ca88b066e2539b4a9cd6cf16522b6c716b28d0201b39",
+    "da/black-ice/index.html": "3e4119c22d8883c8659c964b1b9e13022515d7818e6822b46b830ed05c7befb5",
+    "crossroads/index.html": "87a549362a812429441dcd7b4298731b05fe0d3597e6c964a227ed8e055a98d4",
+    "da/crossroads/index.html": "b58a125d757b13f2b376d13746a4ce129b212126d0879a7d3a9d7370429d88cb",
+    "checkpoints/index.html": "81bc70b79597b453d3009b1c00ff6b6e488036728b9210989fc547d4994ffe8b",
+    "da/checkpoints/index.html": "527cb0ab2d28522b1a350df97a6034d54c18d0936938ea7a17e28bffe56184d7"
   }
 }
