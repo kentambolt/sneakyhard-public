@@ -1834,6 +1834,18 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 @media (prefers-reduced-motion: reduce) {
   #home .card, #home .card:hover, #home .card:active, .home-action, .home-action:active, .btn:active:not(:disabled) { transform: none; transition: none; }
 }
+
+/* Trade Places polish: clickable pieces and destinations show a pointer; state changes fade (200 ms). */
+.trade-mode .trade-movable,.trade-mode .trade-destination{cursor:pointer}
+.trade-mode .trade-token{transition:opacity 200ms ease-out,box-shadow 200ms ease-out,filter 200ms ease-out}
+.trade-mode .tile{transition:outline-color 200ms ease-out,border-color 200ms ease-out}
+@media (hover:hover){.trade-mode .trade-movable:hover .trade-token{filter:brightness(1.08)}}
+@media (prefers-reduced-motion:reduce){.trade-mode .trade-token,.trade-mode .tile{transition:none}}
+/* Back to the catalog: drawn arrow in a quiet outlined pill. */
+#game .back{gap:10px;min-height:40px;padding:0 18px 0 14px;border:1.5px solid var(--border-strong);background:transparent;color:var(--text-primary);font:600 15px/1 var(--sans)}
+#game .back:hover{background:rgb(144 134 248 / .1);border-color:var(--accent-purple-light)}
+#game .back .back-icon{width:19px;height:19px;flex:none}
+@media (max-width:780px){#game .back{min-height:36px;padding:0 14px 0 11px;font-size:14px;gap:8px}#game .back .back-icon{width:17px;height:17px}}
 </style>
 
 <main class="app">
@@ -1960,7 +1972,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   <section class="view" id="game" hidden>
     <header class="top">
       <div class="title-block">
-        <div class="game-nav"><button class="back" id="back" type="button">← All games</button><label class="game-jump" for="gameJump"><span>Switch game</span><select id="gameJump" aria-label="Switch game"></select></label></div>
+        <div class="game-nav"><button class="back" id="back" type="button"><svg class="back-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5.5M11 5.5 4.5 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>All games</span></button><label class="game-jump" for="gameJump"><span>Switch game</span><select id="gameJump" aria-label="Switch game"></select></label></div>
         <h1 class="brand" id="gameName"></h1>
       </div>
       <p class="tagline" id="gameRules"></p>
@@ -2653,7 +2665,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
    used:()=>state().filter((v,c)=>v>=0&&v===lv.goal[c]).length,meter:()=>`Moves ${history.length}`,statusExtra:()=>'',stuck:()=>!won()&&!legal().length,stuckMsg:()=> 'No moves left. Undo to try another order.',successMessage:'Everyone has traded places!',
    undo(){if(history.length){history.pop();codes.pop();selected=-1;}},serialize:()=>JSON.stringify({actions:history}),restore(raw){try{const parsed=JSON.parse(raw);if(!Array.isArray(parsed.actions)||parsed.actions.length>1000)return;const next=[encode(g,lv.initial)],actions=[];for(const a of parsed.actions){if(!Array.isArray(a)||a.length!==2||!a.every(Number.isInteger)||next.at(-1)===goal)return;const m=commands(lv,g,next.at(-1)).find(m=>g.cells[m.from]===a[0]&&g.cells[m.to]===a[1]);if(!m)return;next.push(m.code);actions.push(a.slice());}codes=next;history=actions;selected=-1;cursor=history.at(-1)?.[1]??g.cells[0];}catch(_){/* Atomic restore. */}},
    routeHint(){const best=search(lv,Array.from(state()));return best.distance===null?['bad','This order is stuck. Undo a move.']:['good',`${best.distance} moves remain in a shortest route.`];},
-   scene(){const a=state(),available=legal();return{own:new Uint8Array(lv.w*lv.h),order:new Int32Array(lv.w*lv.h),next:[],pieces:[],rings:[],trails:[],cursor,tradeCells:Array.from(a,(group,c)=>{const goal=lv.goal[c],directions=group>=0?lv.groups[group].directions:0;return{group,goal,selected:selected===c,movable:available.some(m=>g.cells[m.from]===c),arrows:ARROWS.filter((_,d)=>directions>>d&1).join(''),aria:group<0?'Empty spot.':`Group ${String.fromCharCode(65+group)}, arrows ${ARROWS.filter((_,d)=>directions>>d&1).join(' ')}, ${available.some(m=>g.cells[m.from]===c)?'can move':'blocked'}.`};})};},
+   scene(){const a=state(),available=legal();return{own:new Uint8Array(lv.w*lv.h),order:new Int32Array(lv.w*lv.h),next:[],pieces:[],rings:[],trails:[],cursor,tradeCells:Array.from(a,(group,c)=>{const goal=lv.goal[c],directions=group>=0?lv.groups[group].directions:0;return{group,goal,selected:selected===c,movable:available.some(m=>g.cells[m.from]===c),destination:selected>=0&&group<0&&available.some(m=>g.cells[m.from]===selected&&g.cells[m.to]===c),arrows:ARROWS.filter((_,d)=>directions>>d&1).join(''),aria:group<0?'Empty spot.':`Group ${String.fromCharCode(65+group)}, arrows ${ARROWS.filter((_,d)=>directions>>d&1).join(' ')}, ${available.some(m=>g.cells[m.from]===c)?'can move':'blocked'}.`};})};},
   };return game;
  }
  return{validate,geometry,encode,decode,commands,moves,search,createGame};
@@ -6836,9 +6848,8 @@ const LEVELS_SQUARE = [
 // LEVELS-SWAP-BEGIN
 const LEVELS_SWAP = [
   {"id":"swap1","w":5,"h":1,"rows":["#####"],"groups":[{"directions":2},{"directions":8}],"initial":[0,0,-1,1,1],"goal":[1,1,-1,0,0],"difficulty":"Learn"},
-  {"id":"swap2","w":6,"h":1,"rows":["######"],"groups":[{"directions":2},{"directions":8}],"initial":[0,0,0,-1,1,1],"goal":[1,1,-1,0,0,0],"difficulty":"Learn"},
+  {"id":"swap4","w":7,"h":1,"rows":["#######"],"groups":[{"directions":2},{"directions":8}],"initial":[0,0,0,-1,1,1,1],"goal":[1,1,1,-1,0,0,0],"difficulty":"Learn"},
   {"id":"swap3","w":3,"h":3,"rows":[".#.","###",".#."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,-2,0,-1,1,-2,3,-2],"goal":[-2,3,-2,1,-1,0,-2,2,-2],"difficulty":"Learn"},
-  {"id":"swap4","w":7,"h":1,"rows":["#######"],"groups":[{"directions":2},{"directions":8}],"initial":[0,0,0,-1,1,1,1],"goal":[1,1,1,-1,0,0,0],"difficulty":"Challenge"},
   {"id":"swap5","w":3,"h":5,"rows":[".##",".##","###","##.","##."],"groups":[{"directions":3},{"directions":12}],"initial":[-2,1,1,-2,1,1,0,-1,1,0,0,-2,0,0,-2],"goal":[-2,0,0,-2,0,0,1,-1,0,1,1,-2,1,1,-2],"difficulty":"Challenge"},
   {"id":"swap6","w":5,"h":5,"rows":["..#..","..#..","#####","..#..","..#.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,-2,2,-2,-2,-2,-2,2,-2,-2,0,0,-1,1,1,-2,-2,3,-2,-2,-2,-2,3,-2,-2],"goal":[-2,-2,3,-2,-2,-2,-2,3,-2,-2,1,1,-1,0,0,-2,-2,2,-2,-2,-2,-2,2,-2,-2],"difficulty":"Challenge"},
   {"id":"swap7","w":3,"h":7,"rows":[".##",".##",".##","###","##.","##.","##."],"groups":[{"directions":3},{"directions":12}],"initial":[-2,1,1,-2,1,1,-2,1,1,0,-1,1,0,0,-2,0,0,-2,0,0,-2],"goal":[-2,0,0,-2,0,0,-2,0,0,1,-1,0,1,1,-2,1,1,-2,1,1,-2],"difficulty":"Expert"},
@@ -7411,7 +7422,19 @@ const LEVELS_SWAP = [
   // ---------- level ----------
   // Trade Places direction icon (designer's approved style): one filled arrow per allowed direction, each starting
   // at a small shared centre gap. A single direction is one full-length arrow; unbalanced sets are optically centred.
-  function tradeArrowIcon(el,arrows){
+  // Trade Places: glide the moved piece from its old square (200 ms). Purely visual; input is never blocked.
+let tradeLast=null,tradeLastGame=null;
+function animateTradeMove(sc){
+  const now=sc.tradeCells.map((t,c)=>G.B.type[c]&&t?t.group:-2),before=tradeLastGame===G?tradeLast:null;tradeLast=now;tradeLastGame=G;
+  if(!before||before.length!==now.length)return;
+  const from=[],to=[];now.forEach((g,c)=>{if(before[c]>=0&&g===-1)from.push(c);else if(before[c]===-1&&g>=0)to.push(c);});
+  if(from.length!==1||to.length!==1||before[from[0]]!==now[to[0]])return;
+  try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(_){return;}
+  const token=cells[to[0]]&&cells[to[0]].children[1];if(!token||typeof token.animate!=='function')return;
+  const a=cells[from[0]].getBoundingClientRect(),b=cells[to[0]].getBoundingClientRect();
+  token.animate([{transform:'translate('+(a.left-b.left)+'px,'+(a.top-b.top)+'px)'},{transform:'translate(0,0)'}],{duration:200,easing:'cubic-bezier(.25,.8,.3,1)'});
+}
+function tradeArrowIcon(el,arrows){
     if(el.tradeArrows===arrows)return;el.tradeArrows=arrows;
     const dirs=['↑','→','↓','←'].map((a,d)=>arrows.includes(a)?d:-1).filter(d=>d>=0);
     const shaft=dirs.length===1?72:37,arm=d=>`<path transform="rotate(${d*90} 40 40)" d="M40 8 L28 24 H35.6 V${shaft} H44.4 V24 H52 Z"/>`;
@@ -8152,9 +8175,10 @@ const LEVELS_SWAP = [
         cells[c].classList.toggle('relay-special',!!s.symbol);cells[c].classList.toggle('relay-source-node',s.source);cells[c].classList.toggle('relay-fixed',s.source||s.receiver>0);cells[c].classList.toggle('relay-source-powered',s.sourcePower>=0&&!boost);cells[c].classList.toggle('relay-boosted',boost);cells[c].classList.toggle('relay-inactive',s.relay&&!s.powered);
         cells[c].setAttribute('aria-label',`${s.source?'Source S':s.receiver?'Receiver '+s.symbol:s.relay?'Relay':'Free wire tile'}, row ${Math.floor(c/G.B.w)+1}, column ${c%G.B.w+1}, ${s.strength>=0?s.strength+' links remaining':'no signal'}${s.relay&&!s.powered?', relay unpowered':''}`);
       }
-      if(sc.tradeCells&&G.B.type[c]){const t=sc.tradeCells[c],colours=['#2879a0','#b55b27','#287b68','#8353a0'],el=cells[c],target=el.children[0],token=el.children[1];target.className='trade-target trade-group-'+t.goal;target.hidden=true;target.style.setProperty('--trade-colour',colours[t.goal]||'transparent');token.className='trade-token trade-group-'+t.group;token.hidden=t.group<0;tradeArrowIcon(token,t.arrows);token.style.setProperty('--trade-colour',colours[t.group]||'transparent');el.classList.remove('trade-ready');el.classList.toggle('trade-movable',!!t.movable&&t.group>=0);el.classList.toggle('trade-fixed',!t.movable&&t.group>=0);el.classList.toggle('trade-selected',t.selected);el.classList.remove('trade-correct');el.setAttribute('aria-label',t.aria);}
+      if(sc.tradeCells&&G.B.type[c]){const t=sc.tradeCells[c],colours=['#2879a0','#b55b27','#287b68','#8353a0'],el=cells[c],target=el.children[0],token=el.children[1];target.className='trade-target trade-group-'+t.goal;target.hidden=true;target.style.setProperty('--trade-colour',colours[t.goal]||'transparent');token.className='trade-token trade-group-'+t.group;token.hidden=t.group<0;tradeArrowIcon(token,t.arrows);token.style.setProperty('--trade-colour',colours[t.group]||'transparent');el.classList.remove('trade-ready');el.classList.toggle('trade-movable',!!t.movable&&t.group>=0);el.classList.toggle('trade-fixed',!t.movable&&t.group>=0);el.classList.toggle('trade-selected',t.selected);el.classList.toggle('trade-destination',!!t.destination);el.classList.remove('trade-correct');el.setAttribute('aria-label',t.aria);}
       cells[c].style.setProperty('--i', sc.order[c]);
     }
+    if(sc.tradeCells)animateTradeMove(sc);
     if(sc.halfway){sc.halfway.wires.forEach((w,i)=>{const line=ink.halfway.wires[i];for(const [k,v]of Object.entries({x1:w.from.x,y1:w.from.y,x2:w.to.x,y2:w.to.y,opacity:w.active?1:0}))line.setAttribute(k,v);line.setAttribute('visibility',w.active?'visible':'hidden');line.setAttribute('class','half-wire half-wire-'+i+(w.selected?' selected':''));});ink.halfway.dots.forEach((dot,i)=>{const p=sc.halfway.crossings[i];dot.setAttribute('visibility',p?'visible':'hidden');dot.setAttribute('opacity',p?1:0);if(p){dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);dot.setAttribute('r',p.above?.04:.025);dot.setAttribute('class','half-dot'+(p.above?' above':''));dot.setAttribute('data-pair',p.a+','+p.b);}});}
     (sc.turningEdges||[]).forEach((e,i)=>{const group=ink.turning[i],line=group.children[0],head=group.children[1],[x,y]=center(e.from,sc.own),[nx,ny]=center(e.to,sc.own),length=Math.hypot(nx-x,ny-y),ux=(nx-x)/length,uy=(ny-y)/length,mx=(x+nx)/2,my=(y+ny)/2;group.setAttribute('class','turning-gate'+(e.turned?' turned':''));for(const [k,v]of Object.entries({x1:x+ux*.43,y1:y+uy*.43,x2:nx-ux*.43,y2:ny-uy*.43}))line.setAttribute(k,v);head.setAttribute('points',[[mx+ux*.16,my+uy*.16],[mx-ux*.12-uy*.1,my-uy*.12+ux*.1],[mx-ux*.12+uy*.1,my-uy*.12-ux*.1]].map(p=>p.join(',')).join(' '));});
     if(G.borrowMode)ink.borrow.forEach((group,i)=>group.setAttribute('opacity',sc.borrowLoans.includes(i+1)?'1':'0'));
