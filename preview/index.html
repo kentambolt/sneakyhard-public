@@ -1846,7 +1846,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 #game .back:hover{background:rgb(144 134 248 / .1);border-color:var(--accent-purple-light)}
 #game .back .back-icon{width:19px;height:19px;flex:none}
 @media (max-width:780px){#game .back{min-height:36px;padding:0 14px 0 11px;font-size:14px;gap:8px}#game .back .back-icon{width:17px;height:17px}}
-</style>
+.physical-da{display:none}html[lang="da"] .physical-en{display:none}html[lang="da"] .physical-da{display:inline}#navHowTo[hidden]{display:none}</style>
 
 <main class="app">
   <section class="view" id="home">
@@ -1883,7 +1883,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
       <a class="logo" id="homeLogo" href="./" aria-label="SneakyHard home"><svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><rect x="3" y="3" width="13.5" height="13.5" rx="4" fill="#9086F8"/><rect x="19.5" y="3" width="13.5" height="13.5" rx="4" fill="#FF8578"/><rect x="3" y="19.5" width="13.5" height="13.5" rx="4" fill="#FF8578"/><rect x="19.5" y="19.5" width="13.5" height="13.5" rx="4" fill="#B5ADFF"/><circle cx="26.25" cy="26.25" r="3" fill="#201D2D"/></svg><span class="logo-word">Sneaky<em>Hard</em></span></a>
       <nav class="site-nav" id="siteNav" aria-label="Main">
         <a class="site-link" id="navGames" href="#games">Games</a>
-        <a class="site-link" id="navHowTo" href="#how-to-play">How to play</a>
+        <a class="site-link physical-link" href="physical/"><span class="physical-en">3D print</span><span class="physical-da">3D-print</span></a><a class="site-link" id="navHowTo" href="#how-to-play" hidden>How to play</a>
         <a class="site-link" id="navAbout" href="#about">About</a>
       </nav>
       <div class="header-tools">
