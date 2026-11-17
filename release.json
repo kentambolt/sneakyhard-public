@@ -1,9 +1,9 @@
 {
   "format": 1,
   "games": 7,
-  "levels": 63,
-  "htmlSha256": "a8323169b2616fdf22b1586f541e01ace81c0265221d3269dea9dd934828495d",
+  "levels": 68,
+  "htmlSha256": "c63e6bdc62a9e05d58be84c88facee54a9f1db3100473d654500c593890f7e90",
   "localized": {
-    "da/index.html": "9b81f8c0db95fd86ea811db7a0510a64319f89a63b28e52c440613014c931617"
+    "da/index.html": "ee128dbc50a650c9604444b1500e9da2624d807c06cc82e86a22477c0f86a3a9"
   }
 }
