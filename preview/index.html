@@ -6980,8 +6980,7 @@ const LEVELS_SWAP = [
   {"id":"swap12","w":3,"h":5,"rows":["###","###","###","###","###"],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[2,2,2,0,-1,1,0,-1,1,0,2,1,3,3,3],"finishZones":[3,3,3,1,-1,0,1,-1,0,1,2,0,2,2,2],"difficulty":"Expert"},
   {"id":"swap13","w":7,"h":7,"rows":["...#...","...#...","...#...","#######","...#...","...#...","...#..."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,-2,-2,2,-2,-2,-2,-2,-2,-2,2,-2,-2,-2,-2,-2,-2,2,-2,-2,-2,0,0,0,-1,1,1,1,-2,-2,-2,3,-2,-2,-2,-2,-2,-2,3,-2,-2,-2,-2,-2,-2,3,-2,-2,-2],"finishZones":[-1,-1,-1,3,-1,-1,-1,-1,-1,-1,3,-1,-1,-1,-1,-1,-1,3,-1,-1,-1,1,1,1,-1,0,0,0,-1,-1,-1,2,-1,-1,-1,-1,-1,-1,2,-1,-1,-1,-1,-1,-1,2,-1,-1,-1],"difficulty":"Expert"},
   {"id":"swap14","w":5,"h":5,"rows":["#####","#####","#####","#####","#####"],"groups":[{"directions":1},{"directions":4},{"directions":2},{"directions":8}],"initial":[2,1,1,3,-1,2,1,1,3,-1,2,-1,-1,-1,3,2,0,0,-1,3,-1,0,0,-1,-1],"finishZones":[3,0,0,-1,2,3,0,0,-1,2,3,-1,-1,-1,2,3,1,1,-1,2,-1,1,1,-1,-1],"difficulty":"Expert"},
-  {"id":"swap15","w":5,"h":7,"rows":[".##..",".##..","#####","#####",".##..",".##..",".##.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,2,-2,-2,-2,2,-1,-2,-2,0,0,2,1,1,0,0,3,1,1,-2,3,-1,-2,-2,-2,3,3,-2,-2,-2,-1,-1,-2,-2],"finishZones":[-1,3,3,-1,-1,-1,3,3,-1,-1,1,1,-1,0,0,1,1,-1,0,0,-1,-1,-1,-1,-1,-1,2,2,-1,-1,-1,2,2,-1,-1],"difficulty":"Expert"},
-  {"id":"swap16","w":5,"h":6,"rows":[".##..",".##..","#####","#####",".##..",".##.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,2,-2,-2,-2,2,2,-2,-2,0,0,-1,1,1,0,0,3,1,1,-2,3,-1,-2,-2,-2,3,3,-2,-2],"finishZones":[-1,3,3,-1,-1,-1,3,3,-1,-1,1,1,-1,0,0,1,1,-1,0,0,-1,2,2,-1,-1,-1,2,2,-1,-1],"difficulty":"Expert"}
+  {"id":"swap15","w":5,"h":7,"rows":[".##..",".##..","#####","#####",".##..",".##..",".##.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,2,-2,-2,-2,2,-1,-2,-2,0,0,2,1,1,0,0,3,1,1,-2,3,-1,-2,-2,-2,3,3,-2,-2,-2,-1,-1,-2,-2],"finishZones":[-1,3,3,-1,-1,-1,3,3,-1,-1,1,1,-1,0,0,1,1,-1,0,0,-1,-1,-1,-1,-1,-1,2,2,-1,-1,-1,2,2,-1,-1],"difficulty":"Expert"}
 ];
 // LEVELS-SWAP-END
 
@@ -7417,7 +7416,7 @@ const LEVELS_SWAP = [
   // No solutions or screenshots of saved player progress are embedded in the catalogue.
   function renderCatalogPreview(mini,g,id){
     mini.classList.add('current-game-mini');
-    const lv=id==='square'?g.levels[0]:id==='swap'?g.levels.find(l=>l.id==='swap16')||g.levels[0]:g.levels.find(l=>l.w*l.h>=16&&l.w<=6&&l.h<=6)||g.levels[0];
+    const lv=id==='square'?g.levels[0]:id==='swap'?g.levels.find(l=>l.id==='swap15')||g.levels[0]:g.levels.find(l=>l.w*l.h>=16&&l.w<=6&&l.h<=6)||g.levels[0];
     mini.setAttribute('data-preview-level',lv.id);
     const art=document.createElementNS(SVGNS,'svg');
     const draw=(tag,attrs,parent=art)=>{const el=document.createElementNS(SVGNS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);parent.appendChild(el);return el;};

@@ -1,16 +1,16 @@
 {
   "format": 1,
   "games": 7,
-  "levels": 68,
-  "htmlSha256": "2437c58f0b3db79806e0dd3d3dc80f0f2b342aa2def21ae59bc6163ab20b2a5e",
+  "levels": 67,
+  "htmlSha256": "2a340d8049d68e08a60c0bcc2ab92d57308f7cc5815f43237be4150e5fd5e7eb",
   "localized": {
-    "da/index.html": "960109b7199c38e18ca9770a218e048604b50dc61e8d9883cd112abea9fc3931"
+    "da/index.html": "c64cc90fdc2910040ea0b0ba8d382e0419a39e02d86d31190f7febb388e86962"
   },
   "guides": {
     "square-one/index.html": "20da862dafa4d4c95b62b8a6037ec787e61f3d074088deb9a9b9e980313fed28",
     "da/square-one/index.html": "d381c547d0c8f88ce02e67071ccadcc367bb5f50e782ad03694a7bd8b2086b4e",
-    "trade-places/index.html": "a26ae74a9e880ce09ed580da88667b6d739c50dee9f1dff5a925b911866c11cf",
-    "da/trade-places/index.html": "9b56b6286564698f6b91af4f9941dec5ec0b82aedf96d97bc0401d5295e52f5b",
+    "trade-places/index.html": "8dc917967a70a9381939f71e710b0003965a85305e0a08a1ac41497ff6b56d3e",
+    "da/trade-places/index.html": "cfe21fa027e1dd06839b28858c0b2fdfe2e0fa3612e64a356ac64ad4cbe66094",
     "one-path/index.html": "84f60c93633258d8d20fa4b609b7e3f38d38e67124b07439737f06c2b023706b",
     "da/one-path/index.html": "ce5ead215c619f3952883e433225fc23af285a3c5755e602f4dd08f38307d3af",
     "lockstep/index.html": "518cc836c5a97ff8b788b105a1fd3cef6e6b85e0b3b626cc6feda02eb6751ed4",
