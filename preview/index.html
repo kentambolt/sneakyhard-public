@@ -1576,7 +1576,7 @@
 .square-preview{width:30px;height:32px;overflow:visible;flex-shrink:0}
 .polygon-actions{display:flex;gap:6px;justify-content:center}
 .polygon-actions button{flex:1;padding:8px 5px;min-height:42px}
-.board.trade-mode{aspect-ratio:var(--w)/var(--h);gap:4px;background:transparent var(--trade-zones,none) center/100% 100% no-repeat;border:0}
+.board.trade-mode{aspect-ratio:var(--w)/var(--h);gap:0;background:transparent var(--trade-zones,none) center/100% 100% no-repeat;border:0}
 /* Designer-approved pieces: gradient discs with a soft inner light; pieces that cannot move right now are dimmed. */
 .trade-token svg{width:70%;height:70%;overflow:visible;display:block}
 .trade-mode .trade-token{color:#fff;box-shadow:inset 0 2px 2px #ffffff26,inset 0 -3px 4px #00000020,0 4px 10px #0003}
@@ -1587,7 +1587,7 @@
 .trade-mode .trade-fixed .trade-token{opacity:.43;box-shadow:none}
 .trade-mode .trade-failed .trade-token{outline:2px solid var(--danger);outline-offset:3px;opacity:1}
 .board.won .trade-fixed .trade-token{opacity:1}
-.trade-mode .tile{background:transparent;border:1px solid color-mix(in srgb,var(--muted) 28%,transparent);border-radius:8px;overflow:visible}
+.trade-mode .tile{background:transparent;border:0;border-radius:0;overflow:visible}
 .trade-token{position:absolute;inset:13%;display:grid;place-items:center;pointer-events:none}
 .trade-token{background:var(--trade-colour);color:#fff;font:700 clamp(12px,4vw,23px)/1 system-ui;border:2px solid transparent;box-shadow:0 2px 3px #0002}
 .trade-mode .trade-ready .trade-token{border-color:#fff;outline:2px solid var(--trade-colour);outline-offset:2px}
@@ -1609,7 +1609,7 @@
 /* Trade Places: the same cell size on every level. The wrap keeps one width; the cell fits the game's widest
    (--trade-max-w) and tallest (--trade-max-h) boards within that width and the height left for the board. */
 #game.swap .board-wrap{width:min(100%,var(--compact-max-width));max-width:none;height:auto;aspect-ratio:auto;flex:none;container-type:inline-size;--trade-room:calc(100dvh - 235px)}
-#game.swap .board.trade-mode{--trade-cell:min(calc((100cqw - (var(--trade-max-w) - 1) * 4px) / var(--trade-max-w)),calc((var(--trade-room) - (var(--trade-max-h) - 1) * 4px) / var(--trade-max-h)));width:calc(var(--w) * var(--trade-cell) + (var(--w) - 1) * 4px);height:calc(var(--h) * var(--trade-cell) + (var(--h) - 1) * 4px);max-height:none;aspect-ratio:auto;flex:none}
+#game.swap .board.trade-mode{--trade-cell:min(calc(100cqw / var(--trade-max-w)),calc(var(--trade-room) / var(--trade-max-h)));width:calc(var(--w) * var(--trade-cell));height:calc(var(--h) * var(--trade-cell));max-height:none;aspect-ratio:auto;flex:none}
 @media(min-width:500px) and (max-height:500px){#game.swap .board-wrap{width:calc(100% - var(--compact-side-width) - 12px);max-width:calc(100% - var(--compact-side-width) - 12px);--trade-room:calc(100dvh - 145px)}}
 .mini.current-game-mini{display:block;aspect-ratio:3/2}.mini.current-game-mini svg{display:block;width:100%;height:100%}
 .mini.square-mini,.mini.swap-mini{display:block;aspect-ratio:5/3}.mini.square-mini svg,.mini.swap-mini svg{width:100%;height:100%}
@@ -2746,8 +2746,19 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   }
   return out;
  }
- function svg(w,h,zones){if(!zones)return'';const colours=['#58addf','#f49d51','#5cc7a4','#b48ae0'];return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-.025 -.025 '+(w+.05)+' '+(h+.05)+'" preserveAspectRatio="none">'+paths(w,h,zones).map(p=>'<path d="'+p.path+'" fill="'+colours[p.group]+'" fill-opacity=".16" fill-rule="evenodd" stroke="'+colours[p.group]+'" stroke-opacity=".85" stroke-width=".045" stroke-linejoin="round"/>').join('')+'</svg>';}
- return{paths,svg};
+ function layers(w,h,zones,rows){
+  if(!zones)return[];const colours=['#58addf','#f49d51','#5cc7a4','#b48ae0'],valid=c=>!rows||rows[Math.floor(c/w)][c%w]==='#',regions=paths(w,h,zones),boundary=paths(w,h,Array.from({length:w*h},(_,c)=>valid(c)?0:-1));
+  let grid='';for(let c=0;c<w*h;c++)if(valid(c)){const x=c%w,y=Math.floor(c/w);if(x+1<w&&valid(c+1))grid+='M'+(x+1)+' '+y+'v1 ';if(y+1<h&&valid(c+w))grid+='M'+x+' '+(y+1)+'h1 ';}
+  // Cell lines and coloured boundaries share this one coordinate system, including on game cards.
+  return[
+   ...regions.map(p=>({d:p.path,fill:colours[p.group],'fill-opacity':.16,'fill-rule':'evenodd'})),
+   ...boundary.map(p=>({d:p.path,fill:'none',stroke:'#918b9d','stroke-opacity':.4,'stroke-width':.018})),
+   {d:grid,fill:'none',stroke:'#918b9d','stroke-opacity':.3,'stroke-width':.012},
+   ...regions.map(p=>({d:p.path,fill:'none',stroke:colours[p.group],'stroke-opacity':.85,'stroke-width':.035,'stroke-linejoin':'round'}))
+  ];
+ }
+ function svg(w,h,zones,rows){if(!zones)return'';return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-.025 -.025 '+(w+.05)+' '+(h+.05)+'" preserveAspectRatio="none">'+layers(w,h,zones,rows).map(attrs=>'<path '+Object.entries(attrs).map(([k,v])=>k+'="'+v+'"').join(' ')+'/>').join('')+'</svg>';}
+ return{paths,layers,svg};
 });
 
 // SWAP-SOLVER-END
@@ -6964,7 +6975,7 @@ const LEVELS_SWAP = [
   {"id":"swap11","w":4,"h":4,"rows":["#.##","###.","..##","####"],"groups":[{"directions":14},{"directions":11}],"initial":[0,-2,0,0,0,-1,0,-2,-2,-2,1,-1,1,1,1,1],"finishZones":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0],"difficulty":"Expert"},
   {"id":"swap12","w":3,"h":5,"rows":["###","###","###","###","###"],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[2,2,2,0,-1,1,0,-1,1,0,2,1,3,3,3],"finishZones":[3,3,3,1,-1,0,1,-1,0,1,2,0,2,2,2],"difficulty":"Expert"},
   {"id":"swap13","w":7,"h":7,"rows":["...#...","...#...","...#...","#######","...#...","...#...","...#..."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,-2,-2,2,-2,-2,-2,-2,-2,-2,2,-2,-2,-2,-2,-2,-2,2,-2,-2,-2,0,0,0,-1,1,1,1,-2,-2,-2,3,-2,-2,-2,-2,-2,-2,3,-2,-2,-2,-2,-2,-2,3,-2,-2,-2],"finishZones":[-1,-1,-1,3,-1,-1,-1,-1,-1,-1,3,-1,-1,-1,-1,-1,-1,3,-1,-1,-1,1,1,1,-1,0,0,0,-1,-1,-1,2,-1,-1,-1,-1,-1,-1,2,-1,-1,-1,-1,-1,-1,2,-1,-1,-1],"difficulty":"Expert"},
-  {"id":"swap14","w":5,"h":5,"rows":["#####","####.","#####",".##..","#####"],"groups":[{"directions":1},{"directions":4},{"directions":2},{"directions":8}],"initial":[2,1,1,3,-1,2,1,1,3,-2,2,-1,-1,-1,3,-2,0,0,-2,-2,2,0,0,3,-1],"finishZones":[3,0,0,-1,2,3,0,0,2,-1,3,-1,-1,-1,2,-1,1,1,-1,-1,3,1,1,-1,2],"difficulty":"Expert"},
+  {"id":"swap14","w":5,"h":5,"rows":["#####","#####","#####","#####",".##.."],"groups":[{"directions":1},{"directions":4},{"directions":2},{"directions":8}],"initial":[2,1,1,3,-1,2,1,1,3,-1,2,-1,-1,-1,3,2,0,0,-1,3,-2,0,0,-2,-2],"finishZones":[3,0,0,-1,2,3,0,0,-1,2,3,-1,-1,-1,2,3,1,1,-1,2,-1,1,1,-1,-1],"difficulty":"Expert"},
   {"id":"swap15","w":5,"h":7,"rows":[".##..",".##..","#####","#####",".##..",".##..","..#.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,2,-2,-2,-2,2,-1,-2,-2,0,0,2,1,1,0,0,3,1,1,-2,3,-1,-2,-2,-2,3,3,-2,-2,-2,-2,-1,-2,-2],"finishZones":[-1,3,3,-1,-1,-1,3,3,-1,-1,1,1,-1,0,0,1,1,-1,0,0,-1,2,-1,-1,-1,-1,2,2,-1,-1,-1,-1,2,-1,-1],"difficulty":"Expert"},
   {"id":"swap16","w":5,"h":6,"rows":[".##..",".##..","#####","#####",".##..",".##.."],"groups":[{"directions":2},{"directions":8},{"directions":4},{"directions":1}],"initial":[-2,2,2,-2,-2,-2,2,2,-2,-2,0,0,-1,1,1,0,0,3,1,1,-2,3,-1,-2,-2,-2,3,3,-2,-2],"finishZones":[-1,3,3,-1,-1,-1,3,3,-1,-1,1,1,-1,0,0,1,1,-1,0,0,-1,2,2,-1,-1,-1,2,2,-1,-1],"difficulty":"Expert"}
 ];
@@ -7417,10 +7428,9 @@ const LEVELS_SWAP = [
       const colours=[['#58addf','#235b87'],['#f49d51','#b0521d'],['#5cc7a4','#1f6b55'],['#b48ae0','#5d3a80']],defs=draw('defs',{});
       colours.forEach((pair,i)=>{const grad=draw('linearGradient',{id:'catalog-trade-'+i,x2:'100%',y2:'100%'},defs);pair.forEach((colour,j)=>draw('stop',{offset:j?'100%':'0%','stop-color':colour},grad));});
       const scene=g.make(lv).scene();
-      if(lv.finishZones)for(const zone of TradeZoneArt.paths(lv.w,lv.h,lv.finishZones))draw('path',{d:zone.path,fill:colours[zone.group][0],'fill-opacity':.16,stroke:colours[zone.group][0],'stroke-width':.045,'stroke-opacity':.85,'fill-rule':'evenodd'});
+      if(lv.finishZones)for(const layer of TradeZoneArt.layers(lv.w,lv.h,lv.finishZones,lv.rows))draw('path',layer);
       lv.initial.forEach((group,c)=>{
         if(group===-2)return;const x=c%lv.w,y=Math.floor(c/lv.w);
-        draw('rect',{x:x+.03,y:y+.03,width:.94,height:.94,rx:.11,fill:'none',stroke:'var(--line)','stroke-width':.025});
         if(group<0)return;
         const disc=draw('g',{opacity:scene.tradeCells[c].movable?1:.43});
         draw('circle',{cx:x+.5,cy:y+.5,r:.34,fill:'url(#catalog-trade-'+group+')'},disc);
@@ -7656,7 +7666,7 @@ function tradeArrowIcon(el,arrows){
     board.style.setProperty('--w', lv.w);
     board.style.setProperty('--h', lv.h);
     if(G.tradeMode){board.style.setProperty('--trade-max-w',String(Math.max(...game.levels.map(l=>l.w))));board.style.setProperty('--trade-max-h',String(Math.max(...game.levels.map(l=>l.h))));}else{board.style.setProperty('--trade-max-w','');board.style.setProperty('--trade-max-h','');}
-    board.style.setProperty('--trade-zones',G.tradeMode&&lv.finishZones?'url("data:image/svg+xml,'+encodeURIComponent(TradeZoneArt.svg(lv.w,lv.h,lv.finishZones))+'")':'none');
+    board.style.setProperty('--trade-zones',G.tradeMode&&lv.finishZones?'url("data:image/svg+xml,'+encodeURIComponent(TradeZoneArt.svg(lv.w,lv.h,lv.finishZones,lv.rows))+'")':'none');
     board.style.setProperty('--step', `${Math.max(18, Math.round(1100 / G.B.n))}ms`);
     board.textContent = '';
     board.classList.remove('won', 'stuck');
