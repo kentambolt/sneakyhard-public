@@ -1914,6 +1914,70 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
     #game.prototype-design .inside-faces { grid-template-columns:repeat(3,minmax(0,78px)); justify-content:space-between; gap:6px; }
     #game.prototype-design:has(.inside-mode) .board-wrap { min-height:140px; }
   }
+  /* Live objects share the catalog vocabulary but always follow the actual scene. */
+  .mechanic-object{position:absolute;inset:0;z-index:2;pointer-events:none;display:block}
+  .mechanic-object[hidden],.mechanic-control[hidden]{display:none!important}
+  .mechanic-object svg{display:block;width:100%;height:100%}
+  .mechanic-control{display:block;width:55px;height:37px;margin:0 auto 3px;pointer-events:none}
+  .mechanic-control svg{display:block;width:100%;height:100%}
+  .mechanic-placed-selector{border-style:dashed!important}
+  .mechanic-placed-selector .mechanic-control{display:none}
+  .arrangement-mode:not(.balance-mode) .has-mechanic-object .tile-label,.arrangement-mode:not(.balance-mode) .has-mechanic-object .wrong-label{opacity:0}
+  .spare-mode .spare-mark{opacity:0}.spare-mode .cell::before{background:transparent!important;box-shadow:none!important}
+  .spare-mode .mechanic-object{inset:13% -5%}.spare-mode .spare-label{top:0}.spare-mode .spare-sub{bottom:1%}
+  #game.prototype-design:has(.spare-mode) .board-wrap{aspect-ratio:4;height:auto;flex:none;container-type:inline-size;width:100%}
+  .spare-mode{aspect-ratio:4!important}
+  .ferry-mode .cell::before{background:transparent!important;box-shadow:none!important}
+  .ferry-mode{background:linear-gradient(90deg,#66c7a510 0 20%,#65b7e711 20% 80%,#66c7a510 80%);border-radius:8px}
+  .ferry-mode .ferry-bank .ferry-main,.ferry-mode .ferry-target .ferry-main{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:12px;z-index:3}
+  .ferry-mode .ferry-bank .ferry-sub,.ferry-mode .ferry-target .ferry-sub{opacity:0}
+  .ferry-mode .ferry-target .ferry-detail{position:absolute;bottom:0;font-size:9px}
+  .ferry-mode .has-mechanic-object[data-object] .ferry-main{z-index:3}
+  .ferry-mode .ferry-river .ferry-main,.ferry-mode .ferry-river .ferry-sub{opacity:0}
+  .ferry-mode .ferry-bank .ferry-main{z-index:3}.ferry-mode .mechanic-object{inset:9% 3%}
+  .seat-mode .seat-name{top:auto;bottom:0;z-index:3;font-size:12px}.seat-mode .seat-number{top:0;z-index:3}
+  .seat-mode .mechanic-object{inset:14% 8% 9%}
+  .queue-mode .cell.has-mechanic-object::before{background:transparent!important;box-shadow:none!important}
+  .queue-mode .queue-symbol{z-index:3;inset:35% 0 25%;font-size:clamp(14px,4cqw,25px)}
+  .queue-mode .mechanic-object{inset:4%}.print-mode .print-now{opacity:0}.print-mode .mechanic-object{inset:13% 5% 3%}
+  .lighting-mode .has-mechanic-object>:first-child{opacity:0}.lighting-mode .lit-once::before{background:#d3b56d44!important}
+  .lighting-mode .lit-once>:nth-child(2){opacity:0}
+  .relay-mode .has-mechanic-object>:nth-child(2){opacity:0}
+  .relay-mode .mechanic-object{inset:3% 0}.relay-mode .relay-symbol{z-index:3}
+  .train-mode .piece{opacity:0}.train-mode .mechanic-object{z-index:3}.train-mode .train-station{font-size:9px;right:3%;top:0}
+  .door-object-mode .door-contact{left:34%;top:7%}.door-object-mode .mechanic-object[data-object="contact-queued"]{outline:2px dashed var(--amber);outline-offset:-4px}
+  .pull-mode .has-mechanic-object>:first-child{opacity:0}.pull-mode .mechanic-object{inset:12% 6% 12%}
+  .rolling-mode .has-mechanic-object>:first-child{opacity:0}.rolling-mode .mechanic-object{inset:4% 8% 18%}
+  .hop-mode .has-mechanic-object>:first-child{opacity:0}.hop-mode .mechanic-object{inset:0 49% 49% 0}
+  .balance-mode .mechanic-object{inset:6% 0 0;z-index:1}
+  #game.prototype-design .weight-reading:has(.mechanic-scale){position:relative;height:72px;display:block;padding:0}
+  .mechanic-scale{position:absolute;inset:0 25px;display:block;pointer-events:none}.mechanic-scale svg{width:100%;height:100%}
+  .weight-reading:has(.mechanic-scale) .weight-pan,.weight-reading:has(.mechanic-scale) .weight-relation{visibility:hidden}
+  .weight-reading:has(.mechanic-scale) .weight-reading-title{position:absolute;left:5px;top:3px;z-index:2;font-size:9px}
+  .weight-reading:has(.mechanic-scale) .weight-caption{position:absolute;right:5px;bottom:2px;font-size:9px}
+  @media(max-width:780px){#game.prototype-design:has(.weight-mode) .board-wrap{min-height:160px}.mechanic-control{height:29px;width:49px}}
+  .clue:has(.mechanic-control){display:flex!important;align-items:center;justify-content:center;gap:6px}
+  .clue .mechanic-control{flex:none;margin:0}
+  #game.prototype-design:has(.spare-mode) .clue:has(.mechanic-control)::before{content:attr(data-mechanic-caption);font:600 14px var(--sans)}
+  #game.prototype-design:has(.spare-mode) .clue:has(.mechanic-control) .mechanic-option-name{font-size:0}
+  #game.prototype-design:has(.spare-mode) .mechanic-control{width:70px;height:39px}
+  .mechanic-object[data-object="chair-free"]{opacity:.3}
+  .mechanic-board{position:absolute;inset:0;z-index:2;pointer-events:none}.mechanic-board svg{width:100%;height:100%}
+  .balance-mode .cell:nth-child(3n+1) .wrong-label,.balance-mode .cell:nth-child(3n) .wrong-label{opacity:0}
+  .lighting-mode .cell:not(.overlit)>:nth-child(2){opacity:0}
+  .train-mode .train-station{z-index:5;top:auto;bottom:2%;right:4%;font-size:11px}
+  .pivot-mode{touch-action:none;cursor:grab}.pivot-mode.pivot-dragging{cursor:grabbing}
+  .pivot-mode .cell.pivot-carrier{z-index:5}.pivot-moving .pivot-now{will-change:transform}
+  .mechanic-payload{position:absolute;inset:4% 24% 40%;z-index:3;pointer-events:none}
+  .mechanic-payload[hidden]{display:none!important}.mechanic-payload svg{width:100%;height:100%}
+  .seat-mode .mechanic-payload{inset:5% 25% 40%}
+  .queue-mode .has-mechanic-object .queue-symbol{opacity:0}
+  .object-drag-ghost{position:fixed;z-index:1000;width:80px;height:70px;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 5px 6px #0008)}
+  .object-drag-ghost[hidden]{display:none!important}.object-drag-ghost svg{width:100%;height:100%}
+  .cell.object-drop{outline:2px solid var(--ink);outline-offset:-3px}
+  .clue:has(.mechanic-control){touch-action:none;user-select:none;-webkit-user-select:none}
+  @media(prefers-reduced-motion:reduce){.mechanic-object,.mechanic-payload,.pivot-now{transition:none!important}}
+  .sip-mode .sip-drop{outline:2px solid var(--ink);outline-offset:-4px}.sip-mode .sip-art{transform-origin:50% 100%}
 .guide-title{margin:22px 0 6px;font-size:18px}.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0;list-style:none}.guide-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border-subtle);border-radius:999px;color:var(--text-primary);font-weight:600;text-decoration:none}.guide-links a:hover{border-color:var(--border-strong);background:var(--bg-card-hover)}.guide-links a:focus-visible{outline:2px solid var(--accent-coral);outline-offset:2px}
 </style>
 
@@ -2593,6 +2657,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
  function registerGames(games){for(const[id,g]of Object.entries(games)){const translated=catalog[id];if(!translated)continue;for(const field of ['rules','card','keys'])if(g[field]&&translated[field]){dictionary[g[field]]=translated[field];dictionary[g[field]+' Keyboard: Z undoes, R restarts.']=translated[field]+' Tastatur: Z fortryder, R starter forfra.';}for(const[a,b]of Object.entries(translated.templates||{}))templates[normal(a)]=b;}}
  const names=s=>({Key:'Nøgle',Hat:'Hat',Cup:'Kop',Book:'Bog',Coin:'Mønt',Shoe:'Sko'})[s]||s;
  function semantic(s){let m;
+  if(m=s.match(/^The current peg has (\d+) dots\. Its dot count changes after you leave\. Tap an exact highlighted landing, swipe, or use the arrow keys\.$/))return 'Den aktuelle knude har '+m[1]+' prikker. Antallet skifter, når du forlader den. Tryk på et præcist fremhævet mål, stryg eller brug piletasterne.';
   if(m=s.match(/^Swap layers · ([AB]) is upper$/))return 'Byt lag · '+m[1]+' er øverst';
   if(m=s.match(/^Matches: (\d+) \/ 9 · Upper card: ([AB])$/))return 'Match: '+m[1]+' / 9 · Øverste kort: '+m[2];
   if(m=s.match(/^([AB]) · (front|back) · (\d+)° clockwise · (upper|lower)(.*)$/))return m[1]+' · '+(m[2]==='front'?'forside':'bagside')+' · '+m[3]+'° med uret · '+(m[4]==='upper'?'øverst':'nederst')+translate(m[5],'da');
@@ -3462,6 +3527,7 @@ function tradeArrowIcon(el,arrows){
   function stopAnim() { if (animTimer) { clearInterval(animTimer); animTimer = null; } }
 
   function loadLevel(i, restoreMoves) {
+    if(game.prototype)cancelMotionUI();
     cancelSquareTrayDrag();
     stopAnim();
     revealed = false;
@@ -3504,7 +3570,7 @@ function tradeArrowIcon(el,arrows){
     board.classList.toggle('relay-mode', !!G.relayMode);
     board.classList.toggle('buttons-mode', !!G.buttonsMode);
     board.classList.toggle('witness-mode', !!G.witnessMode);
-    board.classList.toggle('delivery-mode', !!G.deliveryMode);
+    board.classList.toggle('delivery-mode', !!G.deliveryMode);board.classList.toggle('door-object-mode', !!G.doorMode);
     board.classList.toggle('inside-mode', !!G.insideMode);
     board.classList.toggle('endings-mode', !!G.endingsMode);
     board.classList.toggle('transfer-mode', !!G.transferMode);
@@ -3657,7 +3723,7 @@ function tradeArrowIcon(el,arrows){
         const optionName = document.createElement('span'); optionName.textContent = name; btn.appendChild(optionName); btn._optionName = optionName;
         btn.setAttribute('aria-label', `${G.printMode ? 'Stamp '+name : 'Piece '+(i+1)}, fixed offsets ${shape.map(p => p.join(',')).join('; ')}. Marked square is offset zero.`);
       }
-      btn.addEventListener('click', e => { if(btn._squareModel&&btn._squareModel!==G)return;if(btn._squarePointerClick){btn._squarePointerClick=false;if(e.detail!==0)return;}if(btn._leverPointerClick){btn._leverPointerClick=false;if(e.detail!==0)return;}if (animTimer) return;cancelSquareTrayDrag(); G.chooseItem(i); hintMsg = null; update(); }); cluePanel.appendChild(btn);
+      btn.addEventListener('click', e => { if(btn._squareModel&&btn._squareModel!==G)return;if(btn._squarePointerClick){btn._squarePointerClick=false;if(e.detail!==0)return;}if(btn._leverPointerClick){btn._leverPointerClick=false;if(e.detail!==0)return;}if(btn._objectPointerClick){btn._objectPointerClick=false;if(e.detail!==0)return;}if(animTimer||(G.pivotMode&&pivotAnimation))return;cancelSquareTrayDrag(); G.chooseItem(i); hintMsg = null; update(); }); if(game.prototype)bindObjectTrayDrag(btn,i);cluePanel.appendChild(btn);
     });
     $('side').classList.toggle('two', G.two);
     cells = [];
@@ -3742,7 +3808,7 @@ function tradeArrowIcon(el,arrows){
         }
         d.setAttribute('role', 'button'); d.setAttribute('tabindex', '0');
         d.setAttribute('aria-label', `Row ${y + 1}, column ${x + 1}${dotted ? ', dotted' : ''}${c === lv.anchor ? ', star' : ''}`);
-        d.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); if(G.cellControls && animTimer)return; G.selectCell(c); update(); } });
+        d.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); if(G.cellControls && animTimer||G.pivotMode&&pivotAnimation)return; G.selectCell(c); update(); } });
       }
       if (G.B.num[c]) { const s = document.createElement('span'); s.className = 'num'; s.textContent = G.B.num[c]; d.appendChild(s); }
       board.appendChild(d);
@@ -3773,7 +3839,7 @@ function tradeArrowIcon(el,arrows){
         const x = (ax+bx)/2, y = (ay+by)/2, dx = bx-ax, dy = by-ay;
         group.appendChild(svg('line', { class: 'door-line', x1:x-dy*.4, y1:y+dx*.4, x2:x+dy*.4, y2:y-dx*.4 }));
         group.appendChild(svg('circle', { class: 'door-badge', cx:x-dy*.3, cy:y+dx*.3, r:.13 }));
-        const label = svg('text', { class: 'door-label', x:x-dy*.3, y:y+dx*.3 }); label.textContent = gate.label; group.appendChild(label); return group;
+        const label = svg('text', { class: 'door-label', x:x-dy*.3, y:y+dx*.3 }); label.textContent = gate.label; group.appendChild(label); if(G.doorMode){const objectMark=svg('svg',{x:x-dy*.3+.14,y:y+dx*.3-.13,width:.23,height:.23,viewBox:'0 0 32 32','aria-hidden':'true'});PrototypeVisuals.mount(objectMark,PrototypeVisuals.icon(i?'triangle':'circle'));group.appendChild(objectMark);}return group;
       }),
       goals: (sc.goals || []).map(([who, c]) => { const [x,y] = center(c, sc.own); return svg('rect', { class: `goal goal-${who}`, x:x-.33, y:y-.33, width:.66, height:.66, rx:.08 }); }),
       bridges: (sc.bridges || []).map(b => {
@@ -3998,7 +4064,7 @@ function tradeArrowIcon(el,arrows){
   }
 
   // ---------- rendering ----------
-  function update(blocked) {
+function update(blocked) {
     const board = $('board');
     const won = G.won();
     const sc=G.scene();
@@ -4137,7 +4203,7 @@ function tradeArrowIcon(el,arrows){
       if(sc.hopCells){const t=sc.hopCells[c];cells[c].children[0].textContent=t.number;cells[c].children[1].textContent=t.mark;for(const flag of ['flipped','current','collected'])cells[c].classList.toggle('hop-'+flag,t[flag]);cells[c].setAttribute('aria-label',t.aria);cells[c].setAttribute('aria-disabled',String(!sc.next.some(([to])=>to===c)));}
       if(sc.seamCells){const t=sc.seamCells[c];cells[c].children[0].textContent=t.mark;for(const flag of ['left','right','failed'])cells[c].classList.toggle('seam-'+flag,t[flag]);for(let color=0;color<3;color++)cells[c].classList.toggle('seam-color-'+color,t.color===color);cells[c].setAttribute('aria-label',t.aria);}
       if(sc.foldCells){const t=sc.foldCells[c];cells[c].children[0].textContent=t.main;cells[c].children[1].textContent=t.sub;for(const flag of ['header','unused','hole','mismatch','moving','crease'])cells[c].classList.toggle('fold-'+flag,t[flag]);for(let row=0;row<3;row++)cells[c].classList.toggle('fold-row-'+row,t.row===row);cells[c].setAttribute('aria-label',t.aria);if(G.isInteractiveCell(c))cells[c].setAttribute('aria-disabled',String(t.disabled));}
-      if(sc.clockCells){const make=(tag,attrs)=>{const el=document.createElementNS(SVGNS,tag);for(const [k,v]of Object.entries(attrs))el.setAttribute(k,v);return el;};const s=sc.clockCells[c],art=cells[c].children[1];cells[c].children[0].textContent=s.label+' '+(s.reverse?'↶':'↻');cells[c].children[2].textContent=s.now+' → aim '+s.target;cells[c].setAttribute('aria-label',s.aria);for(const side of ['blue','amber'])cells[c].classList.toggle('clock-'+side,s.side===side);cells[c].classList.toggle('clock-match',s.match);art.textContent='';art.append(make('circle',{cx:.5,cy:.5,r:.4,class:'clock-rim'}),make('circle',{cx:s.aim.x,cy:s.aim.y,r:.07,class:'clock-aim'}));s.ticks.forEach(t=>{const label=make('text',{x:t.x,y:t.y,'text-anchor':'middle','dominant-baseline':'central',class:'clock-mark'});label.textContent=t.v;art.appendChild(label);});art.append(make('line',{x1:.5,y1:.5,x2:.5+(s.hand.x-.5)*.7,y2:.5+(s.hand.y-.5)*.7,class:'clock-hand'}),make('circle',{cx:.5,cy:.5,r:.025,class:'clock-pin'}));}
+      if(sc.clockCells){const make=(tag,attrs)=>{const el=document.createElementNS(SVGNS,tag);for(const [k,v]of Object.entries(attrs))el.setAttribute(k,v);return el;};const s=sc.clockCells[c],art=cells[c].children[1];cells[c].children[0].textContent=s.label+' '+(s.reverse?'↶':'↻');cells[c].children[2].textContent=s.now+' → aim '+s.target;cells[c].setAttribute('aria-label',s.aria);for(const side of ['blue','amber'])cells[c].classList.toggle('clock-'+side,s.side===side);cells[c].classList.toggle('clock-match',s.match);art.textContent='';art.append(make('circle',{cx:.5,cy:.5,r:.4,class:'clock-rim'}),make('circle',{cx:s.aim.x,cy:s.aim.y,r:.07,class:'clock-aim'}));s.ticks.forEach(t=>{const label=make('text',{x:t.x,y:t.y,'text-anchor':'middle','dominant-baseline':'central',class:'clock-mark'});label.textContent=t.v;art.appendChild(label);});art._motionHand=make('line',{x1:.5,y1:.5,x2:.5+(s.hand.x-.5)*.7,y2:.5+(s.hand.y-.5)*.7,class:'clock-hand'});art.append(art._motionHand,make('circle',{cx:.5,cy:.5,r:.025,class:'clock-pin'}));}
       if(sc.pivotCells) {const s=sc.pivotCells[c];cells[c].children[0].textContent=pivotSymbols?s.mark:'';cells[c].children[1].textContent='';cells[c].children[1].setAttribute('data-pattern',pivotSymbols?s.aimMark:'');cells[c].style.setProperty('--pivot-ball',pivotSymbols?'#e3e7ed':s.colour);cells[c].style.setProperty('--pivot-target',pivotSymbols?'#e3e7ed':s.targetColour);for(const side of ['left','right','centre'])cells[c].classList.toggle('pivot-'+side,s.side===side);cells[c].classList.toggle('pivot-match',s.match);cells[c].setAttribute('aria-label',s.aria);}
       if(sc.sipCells) {const s=sc.sipCells[c],art=cells[c].children[3],water=art.children[0],cup=art.children[1],aim=art.children[2];cells[c].children[0].textContent=s.label;cells[c].children[0].style.setProperty('top',`calc(${s.rim*100}% - 24px)`);cells[c].children[1].textContent='';cells[c].children[2].textContent='';cells[c].hidden=!!s.hidden;water.setAttribute('y',s.waterY);water.setAttribute('height',s.waterHeight);cup.setAttribute('d',s.cupPath);aim.setAttribute('y1',s.targetY);aim.setAttribute('y2',s.targetY);aim.setAttribute('opacity',s.drain?'0':'1');art.children[3].setAttribute('d',s.marked?'M .8 .54 H .93 V .83 H .8':'');art.children[4].setAttribute('d',s.marked?(s.sipped?'M .93 .65 V .73':'M .87 .69 H .99'):'');art.children[5].setAttribute('d',Array.from({length:s.capacity-1},(_,i)=>{const y=s.base-(i+1)*(s.base-s.rim)/s.capacity;return 'M .2 '+y+' H .8';}).join(' '));for(const k of ['now','marked','match','selected','drain','sipped'])cells[c].classList.toggle('sip-'+k,!!s[k]);cells[c].setAttribute('aria-pressed',String(!!s.selected));if(s.drain)cells[c].setAttribute('aria-disabled',String(G.optionDisabled(6)));cells[c].setAttribute('aria-label',s.aria);}
       if(sc.borderCells) {const s=sc.borderCells[c];cells[c].children[0].textContent=s.mark;for(const k of ['corner','anchor','failed'])cells[c].classList.toggle('border-'+k,!!s[k]);for(const k of Borderline.KINDS)cells[c].classList.toggle('border-'+k,s.kind===k);cells[c].setAttribute('aria-label',s.aria);}
@@ -4162,6 +4228,16 @@ function tradeArrowIcon(el,arrows){
       if(sc.tradeCells&&G.B.type[c]){const t=sc.tradeCells[c],colours=['#3f86b5','#d2783a','#3a9a7c','#8a62b0'],el=cells[c],token=el.children[0];token.className='trade-token trade-group-'+t.group;token.hidden=t.group<0;tradeArrowIcon(token,t.arrows);token.style.setProperty('--trade-colour',colours[t.group]||'transparent');el.classList.remove('trade-ready');el.classList.toggle('trade-movable',!!t.movable&&t.group>=0);el.classList.toggle('trade-fixed',!t.movable&&t.group>=0);el.classList.toggle('trade-selected',t.selected);el.classList.toggle('trade-failed',!!t.failed);el.classList.toggle('trade-destination',!!t.destination);el.classList.remove('trade-correct');el.setAttribute('aria-label',t.aria);}
       cells[c].style.setProperty('--i', sc.order[c]);
     }
+    if(game.prototype&&MechanicObjects.liveIds.has(game.id)){
+      const objectFrame=MechanicObjects.frame(game.id,game.levels[li],sc,{placements:G.placements?.(),orientations:G.orientations?.(),available:G.available?.(),options:G.options});
+      cells.forEach((cell,c)=>MechanicObjects.attachCell(cell,objectFrame.cells[c]));
+      if(objectFrame.board){if(!board._mechanicBackdrop||!board._mechanicBackdrop._model||board._mechanicBackdrop._model!==G){board._mechanicBackdrop=document.createElement('span');board._mechanicBackdrop._model=G;board._mechanicBackdrop.className='mechanic-board';board._mechanicBackdrop.setAttribute('aria-hidden','true');board.appendChild(board._mechanicBackdrop);}PrototypeVisuals.mount(board._mechanicBackdrop,objectFrame.board);}
+      [...$('clues').children].forEach((btn,i)=>MechanicObjects.control(btn,objectFrame.controls[i]));
+      if(objectFrame.weighings)[...$('weightReadings').children].forEach((row,i)=>{if(!row._mechanicScale){row._mechanicScale=document.createElement('span');row._mechanicScale.className='mechanic-scale';row._mechanicScale.setAttribute('aria-hidden','true');row.appendChild(row._mechanicScale);}PrototypeVisuals.mount(row._mechanicScale,objectFrame.weighings[i]);});
+    }
+    if(game.prototype&&MechanicObjects.liveIds.has(game.id))animateObjectFrame(MechanicObjects.frame(game.id,game.levels[li],sc,{placements:G.placements?.(),orientations:G.orientations?.(),available:G.available?.(),options:G.options}));
+    if(G.pivotMode)paintPivotMotion();
+    if(G.clockMode||G.sipMode||G.carouselMode)paintDetailMotion(sc);
     if(sc.tradeCells)animateTradeMove(sc);
     if(sc.halfway){sc.halfway.wires.forEach((w,i)=>{const line=ink.halfway.wires[i];for(const [k,v]of Object.entries({x1:w.from.x,y1:w.from.y,x2:w.to.x,y2:w.to.y,opacity:w.active?1:0}))line.setAttribute(k,v);line.setAttribute('visibility',w.active?'visible':'hidden');line.setAttribute('class','half-wire half-wire-'+i+(w.selected?' selected':''));});ink.halfway.dots.forEach((dot,i)=>{const p=sc.halfway.crossings[i];dot.setAttribute('visibility',p?'visible':'hidden');dot.setAttribute('opacity',p?1:0);if(p){dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);dot.setAttribute('r',p.above?.04:.025);dot.setAttribute('class','half-dot'+(p.above?' above':''));dot.setAttribute('data-pair',p.a+','+p.b);}});}
     (sc.turningEdges||[]).forEach((e,i)=>{const group=ink.turning[i],line=group.children[0],head=group.children[1],[x,y]=center(e.from,sc.own),[nx,ny]=center(e.to,sc.own),length=Math.hypot(nx-x,ny-y),ux=(nx-x)/length,uy=(ny-y)/length,mx=(x+nx)/2,my=(y+ny)/2;group.setAttribute('class','turning-gate'+(e.turned?' turned':''));for(const [k,v]of Object.entries({x1:x+ux*.43,y1:y+uy*.43,x2:nx-ux*.43,y2:ny-uy*.43}))line.setAttribute(k,v);head.setAttribute('points',[[mx+ux*.16,my+uy*.16],[mx-ux*.12-uy*.1,my-uy*.12+ux*.1],[mx-ux*.12+uy*.1,my-uy*.12-ux*.1]].map(p=>p.join(',')).join(' '));});
@@ -4228,6 +4304,7 @@ function tradeArrowIcon(el,arrows){
       if(outerEdges && i<4)btn._outerEdges.forEach((edge,d)=>edge.textContent=String(outerEdges[i][d]));
       if (G.optionSelected) btn.setAttribute('aria-pressed',String(G.optionSelected(i)));
       else if (!G.actionOptions) btn.setAttribute('aria-pressed', String((G.chosenItem ? G.chosenItem() : G.chosenLie()) === i));
+      if(game.prototype&&MechanicObjects.controlIds.has(game.id)&&btn._mechanicControl)btn.setAttribute('aria-label',optionLabels?optionLabels[i]:G.options[i]);
       btn.disabled = won || !!(G.optionDisabled && G.optionDisabled(i));
     });
     if (G.stripPreviews) {
@@ -4268,6 +4345,8 @@ function tradeArrowIcon(el,arrows){
   }
   board.addEventListener('pointerdown', (e) => {
     if (!G || squareTrayDrag || (e.button !== undefined && e.button !== 0) || G.cellControls && animTimer) return;
+    if(G.pivotMode&&beginPivotGesture(e))return;
+    if(G.sipMode&&beginSipGesture(e))return;
     try { board.setPointerCapture(e.pointerId); } catch (err) {}
     down = { x: e.clientX, y: e.clientY };
     if(G.polygonMode){const r=board.getBoundingClientRect();G.pointerStart((e.clientX-r.left)/r.width*12,(e.clientY-r.top)/r.height*12);update();return;}
@@ -4382,6 +4461,8 @@ function tradeArrowIcon(el,arrows){
     if (!G || $('game').hidden || e.altKey || e.metaKey) return;
     if (!$('infoPanel').hidden) { if (e.key === 'Escape') closeInfo(); return; }
     const k = e.key.toLowerCase();
+    if(game.prototype&&k==='escape'){finishPivotGesture(null,true);cancelObjectDrag();return;}
+    if(G.pivotMode&&pivotAnimation&&!['z','r'].includes(k)){e.preventDefault();return;}
     if(e.target&&['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName.toUpperCase()))return;
     if(G.leverMode&&!e.ctrlKey&&/^[0-9]$/.test(k)){e.preventDefault();G.chooseWeight(Number(k));hintMsg=null;update();return;}
     if(G.grainMode&&!e.ctrlKey&&(/^[123]$/.test(k)||k==='enter'||k==='w')){e.preventDefault();if(!animTimer){if(/^[123]$/.test(k))G.toggleGlass(Number(k)-1);else G.chooseItem(k==='w'?1:0);hintMsg=null;update();}return;}
