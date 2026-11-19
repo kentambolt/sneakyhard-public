@@ -1994,6 +1994,31 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   .inside-grid{transform-origin:50% 50%}
   .inside-faces>:first-child .inside-grid{touch-action:none;cursor:ew-resize}
   #game.prototype-design:has(.outer-mode) #clues .clue,#game.prototype-design:has(.packing-mode) .packing-options .clue{touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+
+  /* Keep a clear footer lane on small prototype screens; never clip gameplay. */
+  @media(max-width:780px){
+    #game.prototype-design{height:calc(100dvh - 62px);min-height:0}
+    #game.prototype-design .weight-reading:has(.mechanic-scale){height:66px}
+    body:has(#game.prototype-design:not([hidden])) > .munthe-feedback{right:12px!important;bottom:6px!important;padding:6px 9px!important;font-size:10px!important;line-height:14px!important}
+    #game.prototype-design:has(.seat-mode,.outer-mode) #status[data-routine="true"]{display:none}
+    #game.prototype-design:has(.outer-mode) .outer-mini{height:48px;max-width:65px;margin-top:4px}
+    #game.prototype-design:has(.outer-mode) .outer-aim .outer-main,#game.prototype-design:has(.outer-mode) .outer-now .outer-main{top:15%}
+    #game.prototype-design:has(.outer-mode) .outer-sub{bottom:7%;font-size:clamp(7px,1.8cqw,10px)}
+  }
+
+  @media(min-width:781px){#game.pivot-triple .board-wrap{aspect-ratio:2.1}}
+  /* Targets stay below a single ball layer, including during drag and snap. */
+  .pivot-mode .pivot-now{visibility:hidden}
+  #game.pivot #clues{display:none}
+  .pivot-pieces,.pivot-controls{position:absolute;inset:0;pointer-events:none}
+  .pivot-pieces{z-index:6}
+  .pivot-ball{position:absolute;width:calc(var(--pivot-node-width,15.333%) * .66);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);display:grid;place-items:center;color:#0f1517;font:800 clamp(15px,4cqw,25px)/1 var(--mono);box-shadow:inset 0 3px 4px #ffffff40,0 2px 4px #0005;pointer-events:none}
+  .pivot-controls{z-index:7}
+  .pivot-control-pair{position:absolute;transform:translate(-50%,-50%);display:flex;gap:2px}
+  .pivot-turn{pointer-events:auto;display:grid;place-items:center;padding:3px;width:32px;height:34px;min-height:32px;border:0;border-radius:6px;background:#172027;color:var(--text);cursor:pointer;touch-action:manipulation}
+  .pivot-turn svg{width:24px;height:24px}
+  .pivot-turn:hover{background:#2b3944}.pivot-turn:focus-visible{outline:2px solid var(--text);outline-offset:2px}.pivot-turn:disabled{opacity:.35;cursor:default}
+  @media(max-width:380px){.pivot-turn{width:29px;padding:2px}.pivot-control-pair{gap:0}}
 .guide-title{margin:22px 0 6px;font-size:18px}.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0;list-style:none}.guide-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border-subtle);border-radius:999px;color:var(--text-primary);font-weight:600;text-decoration:none}.guide-links a:hover{border-color:var(--border-strong);background:var(--bg-card-hover)}.guide-links a:focus-visible{outline:2px solid var(--accent-coral);outline-offset:2px}
 </style>
 
@@ -2174,6 +2199,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
         <div class="info-heading"><h2 id="infoTitle">How to play</h2><div class="language-picker" role="group" aria-label="Language / Sprog" data-no-translate><button type="button" data-language="da" lang="da" aria-label="Dansk">DA</button><button type="button" data-language="en" lang="en" aria-label="English">EN</button></div></div>
         <p id="infoRules"></p>
         <p id="infoKeys"></p>
+        <div id="infoDetails" hidden></div>
         <p class="close-hint">Tap anywhere to close.</p>
       </div>
     </div>
@@ -2673,6 +2699,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
  function registerGames(games){for(const[id,g]of Object.entries(games)){const translated=catalog[id];if(!translated)continue;for(const field of ['rules','card','keys'])if(g[field]&&translated[field]){dictionary[g[field]]=translated[field];dictionary[g[field]+' Keyboard: Z undoes, R restarts.']=translated[field]+' Tastatur: Z fortryder, R starter forfra.';}for(const[a,b]of Object.entries(translated.templates||{}))templates[normal(a)]=b;}}
  const names=s=>({Key:'Nøgle',Hat:'Hat',Cup:'Kop',Book:'Bog',Coin:'Mønt',Shoe:'Sko'})[s]||s;
  function semantic(s){let m;
+  if(m=s.match(/^(Left|Middle|Right) (clockwise|counterclockwise)$/))return {Left:'Venstre cirkel',Middle:'Midtercirkel',Right:'Højre cirkel'}[m[1]]+' '+(m[2]==='clockwise'?'med uret':'mod uret');
+  if(m=s.match(/^(2|3) circular loops share balls\. Match each ball to its target ring\. Drag either way or use the two rotation controls inside each loop\. Use Symbols for an alternative to colours\.$/))return m[1]+' cirkler deler kugler. Få hver kugle til at passe til sin målring. Træk begge veje, eller brug de to rotationsknapper inde i hver cirkel. Vælg Symboler som alternativ til farver.';
+
   if(m=s.match(/^The current peg has (\d+) dots\. Its dot count changes after you leave\. Tap an exact highlighted landing, swipe, or use the arrow keys\.$/))return 'Den aktuelle knude har '+m[1]+' prikker. Antallet skifter, når du forlader den. Tryk på et præcist fremhævet mål, stryg eller brug piletasterne.';
   if(m=s.match(/^Swap layers · ([AB]) is upper$/))return 'Byt lag · '+m[1]+' er øverst';
   if(m=s.match(/^Matches: (\d+) \/ 9 · Upper card: ([AB])$/))return 'Match: '+m[1]+' / 9 · Øverste kort: '+m[2];
@@ -2685,7 +2714,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   if(m=s.match(/^Dot trail\. Reach the flag with total (\d+) in exactly (\d+) steps, without revisiting tiles\.$/))return 'Prikrute. Nå flaget med i alt '+m[1]+' prikker på præcis '+m[2]+' skridt uden genbesøg.';
   if(m=s.match(/^Collect dots on the way to the flag\. A hollow ring is worth zero\. Use exactly (\d+) steps; you may leave other tiles untouched\.$/))return 'Saml prikker på vej til flaget. En tom ring er nul værd. Brug præcis '+m[1]+' skridt; andre felter må gerne stå urørte.';
   if(m=s.match(/^Target for group ([A-D])\. (.+)$/))return `Mål for gruppe ${m[1]}. ${translate(m[2],'da')}`;
-  if(m=s.match(/^(Upper left|Upper right|Shared centre|Lower left|Lower right|Far left|Far right|Position \d+): (\w+) ball, (\w+) target(.*)\.$/)){const places={'Upper left':'Øverst til venstre','Upper right':'Øverst til højre','Shared centre':'Fælles centrum','Lower left':'Nederst til venstre','Lower right':'Nederst til højre','Far left':'Yderst til venstre','Far right':'Yderst til højre'},colours={Coral:'koral',Sky:'lyseblå',Gold:'gul',Mint:'mint',Violet:'violet',Orange:'orange',Cyan:'cyan',Rose:'rosa'},tail=m[4].includes('shared')?', deles af to cirkler':m[4].includes('middle')?', tryk på midtercirklen med uret':m[4].includes('left')?', tryk på venstre cirkel med uret':', tryk på højre cirkel med uret';return (places[m[1]]||m[1])+': '+colours[m[2]]+' kugle, '+colours[m[3]]+' mål'+tail+'.';}
+  if(m=s.match(/^(Upper left|Upper right|Shared centre|Lower left|Lower right|Far left|Far right|Position \d+): (\w+) ball, (\w+) target(.*)\.$/)){const places={'Upper left':'Øverst til venstre','Upper right':'Øverst til højre','Shared centre':'Fælles centrum','Lower left':'Nederst til venstre','Lower right':'Nederst til højre','Far left':'Yderst til venstre','Far right':'Yderst til højre'},colours={Coral:'koral',Sky:'lyseblå',Gold:'gul',Mint:'mint',Violet:'violet',Orange:'orange',Cyan:'cyan',Rose:'rosa'},tail=m[4].includes('shared')?', deles af to cirkler':m[4].includes('middle')?', midtercirkel':m[4].includes('left')?', venstre cirkel':', højre cirkel';return (places[m[1]]||m[1])+': '+colours[m[2]]+' kugle, '+colours[m[3]]+' mål'+tail+'.';}
   if(s.includes('Use tilt buttons, keys or swipe; tiles are not tap controls.'))return s.replace(/Row (\d+), column (\d+)/,'Række $1, kolonne $2').replace(/goal ([AB])/g,'mål $1').replace(/bead ([AB])/g,'kugle $1').replace(', bead home',', kugle på mål').replace(', goal',', mål').replace(', bead',', kugle').replace('matching bead home','rigtig kugle på mål').replace('Use tilt buttons, keys or swipe; tiles are not tap controls.','Brug vippeknapper, taster eller stryg. Felterne er ikke trykknapper.');
 
   if(m=s.match(/^Next top: (.+)\.$/))return'Næste top: '+m[1]+'.';
@@ -3472,6 +3501,8 @@ const LEVELS_SWAP = [
   }
   function openInfo() {
     cancelSquareTrayDrag();
+    const details=$('infoDetails');details.textContent='';details.hidden=!game.prototype;
+    if(game.prototype){const essential=new Set(G.essentialInstructions||[]);for(const text of G.instructions||[]){if(essential.has(text))continue;const p=document.createElement('p');p.textContent=text;details.appendChild(p);}}
     $('infoPanel').hidden = false;
     pushState({ view: game.id, info: true, mine: true });
   }
@@ -3559,7 +3590,7 @@ function tradeArrowIcon(el,arrows){
     }
 
     const board = $('board');
-    $('pivotSymbols').hidden=!G.pivotMode;board.style.setProperty('--pivot-aspect',G.boardAspect||1.5);board.style.setProperty('--pivot-node-width',((.46/(G.boardAspect?G.boardAspect*2:3))*100)+'%');$('game').classList.toggle('pivot-triple',!!G.pivotMode&&G.options.length===3);
+    $('pivotSymbols').hidden=!G.pivotMode;board.style.setProperty('--pivot-aspect',G.boardAspect||1.5);board.style.setProperty('--pivot-node-width',((.46/(G.boardAspect?G.boardAspect*2:3))*100)+'%');$('game').classList.toggle('pivot-triple',!!G.pivotMode&&G.options.length===6);
     board.style.setProperty('--w', lv.w);
     board.style.setProperty('--h', lv.h);
     if(G.tradeMode){board.style.setProperty('--trade-max-w',String(Math.max(...game.levels.map(l=>l.w))));board.style.setProperty('--trade-max-h',String(Math.max(...game.levels.map(l=>l.h))));}else{board.style.setProperty('--trade-max-w','');board.style.setProperty('--trade-max-h','');}
@@ -3892,7 +3923,7 @@ function tradeArrowIcon(el,arrows){
     if (ink.handle) root.appendChild(ink.handle);
     if(G.splitMode){const group=svg('g',{class:'split-diagram',transform:'translate(0 -0.015)'}),beams=Array.from({length:64},(_,i)=>svg('line',{class:'split-beam','data-ray':i,visibility:'hidden'})),mirrors=sc.split.mirrors.map((_,i)=>svg('line',{class:'split-mirror','data-mirror':i}));ink.split={group,beams,mirrors};group.append(...beams,...mirrors);root.appendChild(group);}
     if(G.grainMode){const group=svg('g',{class:'grain-diagram'}),glasses=sc.grain.glasses.map((glass,i)=>{const top=svg('polygon',{class:'grain-sand grain-top','data-glass':i}),bottom=svg('polygon',{class:'grain-sand grain-bottom','data-glass':i}),frame=svg('polyline',{class:'grain-frame','data-glass':i}),stream=svg('line',{class:'grain-stream','data-glass':i,x1:glass.x,x2:glass.x,y1:1.95,y2:2.15});const units=Array.from({length:glass.capacity*2},()=>{const p=svg('polygon',{class:'grain-unit'});group.appendChild(p);return p;});top.setAttribute('visibility','hidden');bottom.setAttribute('visibility','hidden');group.append(top,bottom,frame,stream);return{top,bottom,frame,stream,units};});ink.grain={group,glasses};root.appendChild(group);}
-    if(G.pivotMode){const group=svg('g',{class:'pivot-loops'});sc.pivotTracks.forEach(t=>{const circle=svg('circle',{class:'pivot-circle pivot-'+t.side,cx:t.x,cy:t.y,r:t.radius}),arrow=svg('polygon',{class:'pivot-clockwise pivot-'+t.side,points:t.arrow.map(p=>p.join(',')).join(' ')}),label=svg('text',{class:'pivot-loop-icon',x:t.x,y:t.y+.09,'text-anchor':'middle'});label.textContent='↻';group.append(circle,arrow,label);});ink.pivotLoops=group;root.appendChild(group);}
+    if(G.pivotMode){const group=svg('g',{class:'pivot-loops'});sc.pivotTracks.forEach(t=>group.appendChild(svg('circle',{class:'pivot-circle pivot-'+t.side,cx:t.x,cy:t.y,r:t.radius})));ink.pivotLoops=group;root.appendChild(group);mountPivotControls();}
     if(G.leverMode){const group=svg('g',{class:'lever-diagram'}),pivot=svg('polygon',{class:'lever-pivot'}),beam=svg('line',{class:'lever-beam'}),wires=sc.lever.pins.map((_,i)=>svg('line',{class:'lever-wire','data-peg':i})),pegs=sc.lever.pins.map((_,i)=>svg('circle',{class:'lever-peg','data-peg':i,r:.045}));group.append(pivot,beam,...wires,...pegs);ink.lever={group,pivot,beam,wires,pegs};root.appendChild(group);}
     if(G.polygonMode){let d='';for(let n=2;n<12;n+=2)d+='M '+n+' 0V12 M0 '+n+'H12 ';root.appendChild(svg('path',{d,class:'square-grid'}));}
     root.append(...ink.pieces,...ink.polygons);
@@ -4346,6 +4377,7 @@ function update(blocked) {
     const st = $('status');
     st.className = 'status' + (cls ? ' ' + cls : '');
     st.textContent = msg;
+    if(game.prototype)st.setAttribute('data-routine',String(!revealed&&!won&&!stuck&&!hintMsg&&!(G.feedback&&G.feedback())));
   }
 
   // ---------- input ----------
@@ -4490,7 +4522,7 @@ function update(blocked) {
     if(G.brakeMode&&!e.ctrlKey&&/^[012]$/.test(k)){e.preventDefault();if(!animTimer){G.chooseItem(Number(k));hintMsg=null;update();}return;}
     if((G.borrowMode||G.remainderMode)&&!e.ctrlKey&&/^[0-9]$/.test(k)){e.preventDefault();G.chooseDigit(Number(k));hintMsg=null;update();return;}
     if(G.faceMode&&!e.ctrlKey&&/^[2-5]$/.test(k)){e.preventDefault();if(!animTimer){G.chooseItem(Number(k)-2);hintMsg=null;update();}return;}
-    if (!e.ctrlKey && (G.ferryMode && /^[1-4]$/.test(k) || G.carouselMode && /^[12]$/.test(k) || G.halfwayMode && /^[1-5]$/.test(k) || G.outerMode && /^[1-4]$/.test(k) || G.seamMode && /^[1-4]$/.test(k) || G.foldMode && /^[1-6]$/.test(k) || G.clockMode && /^[12]$/.test(k) || G.minuteMode && /^[1-4]$/.test(k) || G.pivotMode && /^[12]$/.test(k) || G.sipMode && /^[1-7]$/.test(k) || G.weightMode && /^[12]$/.test(k) || G.spareMode && /^[1-5]$/.test(k) || G.circuitMode && /^[1-6]$/.test(k) || G.buttonsMode && /^[123]$/.test(k) || G.insideMode && /^[1-5]$/.test(k) || (G.endingsMode||G.transferMode) && /^[12]$/.test(k))) { e.preventDefault(); if(!animTimer) { G.chooseItem(Number(k)-1); hintMsg=null; update(); } return; }
+    if (!e.ctrlKey && (G.ferryMode && /^[1-4]$/.test(k) || G.carouselMode && /^[12]$/.test(k) || G.halfwayMode && /^[1-5]$/.test(k) || G.outerMode && /^[1-4]$/.test(k) || G.seamMode && /^[1-4]$/.test(k) || G.foldMode && /^[1-6]$/.test(k) || G.clockMode && /^[12]$/.test(k) || G.minuteMode && /^[1-4]$/.test(k) || G.pivotMode && /^[1-6]$/.test(k) || G.sipMode && /^[1-7]$/.test(k) || G.weightMode && /^[12]$/.test(k) || G.spareMode && /^[1-5]$/.test(k) || G.circuitMode && /^[1-6]$/.test(k) || G.buttonsMode && /^[123]$/.test(k) || G.insideMode && /^[1-5]$/.test(k) || (G.endingsMode||G.transferMode) && /^[12]$/.test(k))) { e.preventDefault(); if(!animTimer) { G.chooseItem(Number(k)-1); hintMsg=null; update(); } return; }
     if(G.ferryMode&&k==='enter'&&!G.won()){e.preventDefault();if(!animTimer){G.chooseItem(4);hintMsg=null;update();}return;}
     if (e.target && ['BUTTON','INPUT','SELECT','TEXTAREA'].includes(e.target.tagName.toUpperCase()) && (k === 'enter' || k === ' ')) return;
     if (k === ' ' && G.activateCursor) { e.preventDefault(); if(G.cellControls&&animTimer)return; G.activateCursor(); update(); return; }
