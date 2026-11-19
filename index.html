@@ -1978,6 +1978,22 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   .clue:has(.mechanic-control){touch-action:none;user-select:none;-webkit-user-select:none}
   @media(prefers-reduced-motion:reduce){.mechanic-object,.mechanic-payload,.pivot-now{transition:none!important}}
   .sip-mode .sip-drop{outline:2px solid var(--ink);outline-offset:-4px}.sip-mode .sip-art{transform-origin:50% 100%}
+
+  #game.prototype-auto-compact:has(.window-mode) .strip-previews:not([hidden]){display:grid!important;flex:none}
+  .more-motion-layer{pointer-events:none}
+  .more-drop{outline:2px solid #b7f0cf!important;outline-offset:-3px}
+  .window-physical .window-blue-open,.window-physical .window-blue-solid,.window-physical .window-amber-open,.window-physical .window-amber-solid{background:transparent!important;box-shadow:none!important}
+  .window-physical .tile:not(.window-legend):is(.window-blue-open,.window-blue-solid,.window-amber-open,.window-amber-solid)>*{visibility:hidden}
+  .more-face-moving{background:transparent!important;box-shadow:none!important;border-color:transparent!important}
+  .more-face-moving>:nth-child(-n+2){visibility:hidden}
+  .more-paper-moving{background:transparent!important;box-shadow:none!important;border-color:transparent!important}
+  .more-paper-moving>*{visibility:hidden}
+  .more-outer-moving>*,.more-pack-moving>*{visibility:hidden!important}
+  .more-outer-moving::before,.more-outer-moving::after,.more-pack-moving::before,.more-pack-moving::after{visibility:hidden!important}
+  .more-face-moving::before,.more-face-moving::after,.more-paper-moving::before,.more-paper-moving::after,.window-physical :is(.window-blue-open,.window-blue-solid,.window-amber-open,.window-amber-solid)::before,.window-physical :is(.window-blue-open,.window-blue-solid,.window-amber-open,.window-amber-solid)::after{visibility:hidden!important}
+  .inside-grid{transform-origin:50% 50%}
+  .inside-faces>:first-child .inside-grid{touch-action:none;cursor:ew-resize}
+  #game.prototype-design:has(.outer-mode) #clues .clue,#game.prototype-design:has(.packing-mode) .packing-options .clue{touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .guide-title{margin:22px 0 6px;font-size:18px}.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0;list-style:none}.guide-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border-subtle);border-radius:999px;color:var(--text-primary);font-weight:600;text-decoration:none}.guide-links a:hover{border-color:var(--border-strong);background:var(--bg-card-hover)}.guide-links a:focus-visible{outline:2px solid var(--accent-coral);outline-offset:2px}
 </style>
 
@@ -3654,7 +3670,7 @@ function tradeArrowIcon(el,arrows){
     const witnessPanel=$('witnessReports');witnessPanel.textContent='';witnessPanel.hidden=!G.witnessMode;
     const insidePanel=$('insidePreviews');insidePanel.textContent='';insidePanel.hidden=!G.insideMode;
     if(G.insideMode) G.referenceCards.forEach((card,i)=>{const row=document.createElement('section'),title=document.createElement('h3'),faces=document.createElement('div');title.className='inside-card-title';faces.className='inside-faces';row._title=title;
-      [G.currentCards()[i],...card].forEach((pattern,j)=>{const face=document.createElement('div'),caption=document.createElement('span'),grid=document.createElement('div');caption.className='inside-face-caption';caption.textContent=['Now ↑','Front ↑','Back ↑'][j];grid.className='inside-grid';grid.setAttribute('role','img');grid.setAttribute('aria-label',`${'AB'[i]} ${caption.textContent}${j?' reference':''}: ${[...pattern].map(ch=>ch==='.'?'hole':InsideOut.NAMES[ch]).join(', ')}`);[...pattern].forEach(ch=>{const bit=document.createElement('span');bit.className='inside-bit'+(ch==='.'?' hole':'');bit.textContent=InsideOut.MARKS[ch];grid.appendChild(bit);});face.append(caption,grid);faces.appendChild(face);if(j===0)row._currentGrid=grid;});row.append(title,faces);insidePanel.appendChild(row);
+      [G.currentCards()[i],...card].forEach((pattern,j)=>{const face=document.createElement('div'),caption=document.createElement('span'),grid=document.createElement('div');caption.className='inside-face-caption';caption.textContent=['Now ↑','Front ↑','Back ↑'][j];grid.className='inside-grid';grid.setAttribute('role','img');grid.setAttribute('aria-label',`${'AB'[i]} ${caption.textContent}${j?' reference':''}: ${[...pattern].map(ch=>ch==='.'?'hole':InsideOut.NAMES[ch]).join(', ')}`);[...pattern].forEach(ch=>{const bit=document.createElement('span');bit.className='inside-bit'+(ch==='.'?' hole':'');bit.textContent=InsideOut.MARKS[ch];grid.appendChild(bit);});face.append(caption,grid);faces.appendChild(face);if(j===0){row._currentGrid=grid;if(game.prototype)bindMoreInsideGrid(grid,i);}});row.append(title,faces);insidePanel.appendChild(row);
     });
     if(G.witnessMode) for(let i=0;i<3;i++) { const btn=document.createElement('button');btn.type='button';btn.className='clue witness-report';btn.addEventListener('click',()=>{G.chooseWitness(i);hintMsg=null;update();});witnessPanel.appendChild(btn); }
     const previews = $('stripPreviews'); previews.textContent = ''; previews.hidden = !G.stripPreviews;
@@ -3723,7 +3739,7 @@ function tradeArrowIcon(el,arrows){
         const optionName = document.createElement('span'); optionName.textContent = name; btn.appendChild(optionName); btn._optionName = optionName;
         btn.setAttribute('aria-label', `${G.printMode ? 'Stamp '+name : 'Piece '+(i+1)}, fixed offsets ${shape.map(p => p.join(',')).join('; ')}. Marked square is offset zero.`);
       }
-      btn.addEventListener('click', e => { if(btn._squareModel&&btn._squareModel!==G)return;if(btn._squarePointerClick){btn._squarePointerClick=false;if(e.detail!==0)return;}if(btn._leverPointerClick){btn._leverPointerClick=false;if(e.detail!==0)return;}if(btn._objectPointerClick){btn._objectPointerClick=false;if(e.detail!==0)return;}if(animTimer||(G.pivotMode&&pivotAnimation))return;cancelSquareTrayDrag(); G.chooseItem(i); hintMsg = null; update(); }); if(game.prototype)bindObjectTrayDrag(btn,i);cluePanel.appendChild(btn);
+      btn.addEventListener('click', e => { if(btn._squareModel&&btn._squareModel!==G)return;if(btn._squarePointerClick){btn._squarePointerClick=false;if(e.detail!==0)return;}if(btn._leverPointerClick){btn._leverPointerClick=false;if(e.detail!==0)return;}if(btn._objectPointerClick){btn._objectPointerClick=false;if(e.detail!==0)return;}if(animTimer||(G.pivotMode&&pivotAnimation))return;cancelSquareTrayDrag(); G.chooseItem(i); hintMsg = null; update(); }); if(game.prototype){bindObjectTrayDrag(btn,i);bindMoreTray(btn,i);}cluePanel.appendChild(btn);
     });
     $('side').classList.toggle('two', G.two);
     cells = [];
@@ -4269,7 +4285,7 @@ function update(blocked) {
     if (sc.handle) placeHandle(sc.handle);
     sc.pieces.forEach(([, c, dur], k) => {
       const [x, y] = center(c, sc.own), el = ink.pieces[k];
-      if (!sc.handle) {const off=sc.pieceOffsets?.[k]||[0,0];if(sc.snapPieces)el._at=null;placePiece(el, x+off[0], y+off[1], dur || (G.gravityMode?200:90));}
+      if (!sc.handle) {const off=sc.pieceOffsets?.[k]||[0,0];if(sc.snapPieces&&!(game.prototype&&(G.brakeMode||G.turningMode)))el._at=null;placePiece(el, x+off[0], y+off[1], dur || (G.gravityMode?200:game.prototype?180:90));}
       el.classList.remove('blocked');
       el.classList.toggle('endings-active',(!!G.endingsMode||!!G.transferMode)&&sc.activeRoute===k);
       if (blocked === k) { void el.getBoundingClientRect(); el.classList.add('blocked'); }
@@ -4311,6 +4327,7 @@ function update(blocked) {
       const offsets = G.offsets();
       [...$('stripPreviews').children].forEach((row, i) => [...row.children[1].children].forEach((bit, j) => bit.classList.toggle('within-frame', j >= offsets[i] && j < offsets[i] + G.windowWidth)));
     }
+    if(game.prototype)paintMoreMotion(sc);
     const rb = $('restart');
     rb.classList.toggle('go', won);
     rb.classList.toggle('alert', stuck);
@@ -4347,6 +4364,7 @@ function update(blocked) {
     if (!G || squareTrayDrag || (e.button !== undefined && e.button !== 0) || G.cellControls && animTimer) return;
     if(G.pivotMode&&beginPivotGesture(e))return;
     if(G.sipMode&&beginSipGesture(e))return;
+    if(game.prototype&&beginMoreGesture(e))return;
     try { board.setPointerCapture(e.pointerId); } catch (err) {}
     down = { x: e.clientX, y: e.clientY };
     if(G.polygonMode){const r=board.getBoundingClientRect();G.pointerStart((e.clientX-r.left)/r.width*12,(e.clientY-r.top)/r.height*12);update();return;}
@@ -4461,7 +4479,7 @@ function update(blocked) {
     if (!G || $('game').hidden || e.altKey || e.metaKey) return;
     if (!$('infoPanel').hidden) { if (e.key === 'Escape') closeInfo(); return; }
     const k = e.key.toLowerCase();
-    if(game.prototype&&k==='escape'){finishPivotGesture(null,true);cancelObjectDrag();return;}
+    if(game.prototype&&k==='escape'){finishPivotGesture(null,true);finishSipGesture(null,true);finishMoreGesture(null,true);cancelObjectDrag();return;}
     if(G.pivotMode&&pivotAnimation&&!['z','r'].includes(k)){e.preventDefault();return;}
     if(e.target&&['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName.toUpperCase()))return;
     if(G.leverMode&&!e.ctrlKey&&/^[0-9]$/.test(k)){e.preventDefault();G.chooseWeight(Number(k));hintMsg=null;update();return;}
