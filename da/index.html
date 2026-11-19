@@ -2210,6 +2210,43 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 <div id="leverDragGhost" class="lever-drag-ghost" data-visible="false" aria-hidden="true"></div>
 
 <script>
+// COMPLETION-NOTIFICATIONS-BEGIN
+'use strict';
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.CompletionJournal=factory();})(typeof self!=='undefined'?self:this,function(){
+ const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,week=7*86400000;
+ function create({enabled=false,allowed,read,write,newId,now=Date.now}){
+  const pairs=new Set(allowed.map(([game,level])=>JSON.stringify([game,level]))),pair=p=>JSON.stringify([p.data.game,p.data.level]);
+  function load(){const raw=read();if(!raw)return[];const s=JSON.parse(raw);if(s.format!==2||!Array.isArray(s.records)||s.records.length>100)throw Error('Invalid journal');const ids=new Set(),keys=new Set();for(const r of s.records){const p=r.payload;if(!p||Object.keys(p).sort().join()!=='data,environment,id,occurred_at,project,type,version'||p.version!==1||p.project!=='sneakyhard'||p.environment!=='production'||p.type!=='level_completed'||!uuid.test(p.id)||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(p.occurred_at)||!Number.isFinite(Date.parse(p.occurred_at))||Object.keys(p.data).sort().join()!=='game,level'||!['pending','accepted','review'].includes(r.state)||!Number.isInteger(r.attempts)||r.attempts<0||!Number.isFinite(r.retryAt)||ids.has(p.id)||keys.has(pair(p)))throw Error('Invalid record');ids.add(p.id);keys.add(pair(p));}return s.records;}
+  const save=records=>write(JSON.stringify({format:2,records})),copy=p=>JSON.parse(JSON.stringify(p));
+  function mutate(id,fn){if(enabled!==true)return false;try{const rs=load(),r=rs.find(r=>r.payload.id===id);if(!r)return false;fn(r);save(rs);return true;}catch(_){return false;}}
+  return Object.freeze({
+   record(game,level){if(enabled!==true||!pairs.has(JSON.stringify([game,level])))return null;try{const rs=load(),old=rs.find(r=>pair(r.payload)===JSON.stringify([game,level]));if(old)return old.state==='pending'?copy(old.payload):null;if(rs.length>=100)return null;const id=newId();if(!uuid.test(id)||rs.some(r=>r.payload.id===id))return null;const payload={version:1,id,project:'sneakyhard',environment:'production',type:'level_completed',occurred_at:new Date(now()).toISOString(),data:{game,level}};save([...rs,{payload,state:'pending',attempts:0,retryAt:0}]);return copy(payload);}catch(_){return null;}},
+   pending(){if(enabled!==true)return[];try{const rs=load();let changed=false;for(const r of rs)if(r.state==='pending'&&(now()-Date.parse(r.payload.occurred_at)>week||!pairs.has(pair(r.payload)))){r.state='review';changed=true;}if(changed)save(rs);return rs.filter(r=>r.state==='pending'&&r.retryAt<=now()).map(r=>({payload:copy(r.payload),attempts:r.attempts}));}catch(_){return[];}},
+   accept:id=>mutate(id,r=>{r.state='accepted';}),review:id=>mutate(id,r=>{r.state='review';}),
+   defer:(id,delay)=>mutate(id,r=>{if(r.state==='pending'){r.attempts++;r.retryAt=now()+Math.max(1000,Math.min(week,delay));}})
+  });
+ }
+ return{create};
+});
+
+'use strict';
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./completion-journal'));else root.CompletionDelivery=factory(root.CompletionJournal);})(typeof self!=='undefined'?self:this,function(J){
+ const endpoint='https://munthesystems.dk/notifications/v1/events',key='hfeg.completion-delivery.v2',lock='hfeg.completion-delivery.v2';
+ function permitted(w){const n=w.navigator,l=w.location,d=w.document,script=d?.querySelector?.('script[data-project="sneakyhard"]');return l?.origin==='https://sneakyhard.com'&&['/','/index.html','/da/','/da/index.html'].includes(l.pathname)&&n?.locks?.request&&n.doNotTrack!=='1'&&w.doNotTrack!=='1'&&n.globalPrivacyControl!==true&&!n.webdriver&&script?.getAttribute('data-analytics')!=='false'&&!!script&&d.visibilityState!=='prerender';}
+ function mount(w,allowed){if(!permitted(w))return null;let busy=false,timer=null;const journal=J.create({enabled:true,allowed,read:()=>w.localStorage.getItem(key),write:v=>w.localStorage.setItem(key,v),newId:()=>w.crypto.randomUUID(),now:()=>w.Date.now()}),locked=fn=>w.navigator.locks.request(lock,async()=>permitted(w)?fn():null),schedule=(delay=1000)=>{if(timer!==null)w.clearTimeout(timer);timer=w.setTimeout(()=>{timer=null;void drain();},delay);};
+  async function drain(){if(busy||!permitted(w))return;busy=true;try{await w.navigator.locks.request(lock+'.sender',{ifAvailable:true},async acquired=>{if(!acquired)return;const items=await locked(()=>journal.pending());for(const item of items||[]){if(!permitted(w))break;const p=item.payload;try{const response=await w.fetch(endpoint,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),signal:w.AbortSignal.timeout(12000)});if(response.status>=200&&response.status<300){let ack=null;try{ack=await response.json();}catch(_){}if(ack?.accepted===true&&ack.id===p.id&&ack.delivery==='queued'&&typeof ack.duplicate==='boolean'){await locked(()=>journal.accept(p.id));continue;}}
+    if([400,401,403,409,410].includes(response.status)){await locked(()=>journal.review(p.id));continue;}const header=response.headers?.get?.('Retry-After'),seconds=header&&/^\d+$/.test(header)?Number(header):0,date=header&&!seconds?Date.parse(header):0,retry=Math.max(seconds*1000,Number.isFinite(date)?date-w.Date.now():0,Math.min(300000,2000*2**Math.min(item.attempts,8))*(.8+w.Math.random()*.4));await locked(()=>journal.defer(p.id,retry));
+   }catch(_){await locked(()=>journal.defer(p.id,Math.min(300000,2000*2**Math.min(item.attempts,8))*(.8+w.Math.random()*.4)));}}});}catch(_){/* Optional delivery never interrupts gameplay. */}finally{busy=false;if(permitted(w))schedule(30000);}}
+  const api=Object.freeze({complete(game,level){if(!permitted(w))return Promise.resolve(null);return locked(()=>journal.record(game,level)).then(p=>{if(p)schedule(0);return p?.id||null;}).catch(()=>null);}});
+  w.addEventListener('online',()=>{if(permitted(w))schedule(0);});w.addEventListener('pageshow',()=>{if(permitted(w))schedule(0);});schedule(0);return api;
+ }
+ return{mount,permitted};
+});
+
+window.CompletionNotifications=CompletionDelivery.mount(window,[["vej","3-1"],["vej","4-1"],["vej","4-2"],["vej","5-1"],["vej","5-2"],["vej","5-3"],["vej","6-1"],["vej","6-2"],["vej","6-3"],["vej","7-1"],["vej","7-2"],["vej","8-1"],["vej","8-2"],["takt","t3-1"],["takt","t4-1"],["takt","t4-2"],["takt","t5-1"],["takt","t5-2"],["takt","t5-3"],["takt","t6-1"],["takt","t6-2"],["is","i3-1"],["is","i4-1"],["is","i4-2"],["is","i5-1"],["is","i5-2"],["is","i5-3"],["is","i6-1"],["is","i6-2"],["kryds","k3-1"],["kryds","k4-1"],["kryds","k4-2"],["kryds","k5-1"],["kryds","k5-2"],["kryds","k5-3"],["kryds","k6-1"],["kryds","k6-2"],["post","p3-1"],["post","p4-1"],["post","p4-2"],["post","p5-1"],["post","p5-2"],["post","p5-3"],["post","p6-1"],["post","p6-2"],["square","square3"],["square","square4"],["square","square5"],["square","square6"],["square","square7"],["square","square8"],["square","square9"],["square","square10"],["swap","swap0"],["swap","swap1"],["swap","swap4"],["swap","swap3"],["swap","swap5"],["swap","swap6"],["swap","swap7"],["swap","swap8"],["swap","swap9"],["swap","swap10"],["swap","swap11"],["swap","swap12"],["swap","swap13"],["swap","swap14"],["swap","swap15"]]);
+// COMPLETION-NOTIFICATIONS-END
+</script>
+<script>
 // SOLVER-BEGIN (copied from tools/mix.js by tools/build-public.js)
 'use strict';
 // General engine for all variants: 1 or 2 pieces (shared control), tile types:
@@ -3347,7 +3384,7 @@ const LEVELS_SWAP = [
   const solvedKey = (g) => `hfeg.solved.${g.id}`;
   // The retired swap16 is identical to the compact canonical swap15; keep earned completion.
   function getSolved(g) { try { const saved=new Set(JSON.parse(localStorage.getItem(solvedKey(g)) || '[]'));if(g.id==='swap'&&saved.has('swap16'))saved.add('swap15');return saved; } catch (e) { return new Set(); } }
-  function addSolved(g, id) { const s = getSolved(g); s.add(id); try { localStorage.setItem(solvedKey(g), JSON.stringify([...s])); } catch (e) {} systemsEvent('level_completed'); }
+  function addSolved(g, id) { if(PUBLIC&&LOCALE_DATA.audience==='public'){try{window.CompletionNotifications?.complete?.(g.id,id);}catch(_){/* Optional notifications never block a solved game. */}} const s = getSolved(g); s.add(id); try { localStorage.setItem(solvedKey(g), JSON.stringify([...s])); } catch (e) {} systemsEvent('level_completed'); }
 
   // ---------- home ----------
   function uiIcon(d,cls='ui-icon'){const s=document.createElementNS(SVGNS,'svg');s.setAttribute('class',cls);s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('focusable','false');const p=document.createElementNS(SVGNS,'path');p.setAttribute('d',d);s.appendChild(p);return s;}

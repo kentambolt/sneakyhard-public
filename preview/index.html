@@ -7749,7 +7749,7 @@ const LEVELS_SWAP = [
   const solvedKey = (g) => `hfeg.solved.${g.id}`;
   // The retired swap16 is identical to the compact canonical swap15; keep earned completion.
   function getSolved(g) { try { const saved=new Set(JSON.parse(localStorage.getItem(solvedKey(g)) || '[]'));if(g.id==='swap'&&saved.has('swap16'))saved.add('swap15');return saved; } catch (e) { return new Set(); } }
-  function addSolved(g, id) { const s = getSolved(g); s.add(id); try { localStorage.setItem(solvedKey(g), JSON.stringify([...s])); } catch (e) {} systemsEvent('level_completed'); }
+  function addSolved(g, id) { if(PUBLIC&&LOCALE_DATA.audience==='public'){try{window.CompletionNotifications?.complete?.(g.id,id);}catch(_){/* Optional notifications never block a solved game. */}} const s = getSolved(g); s.add(id); try { localStorage.setItem(solvedKey(g), JSON.stringify([...s])); } catch (e) {} systemsEvent('level_completed'); }
 
   // ---------- home ----------
   function uiIcon(d,cls='ui-icon'){const s=document.createElementNS(SVGNS,'svg');s.setAttribute('class',cls);s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('focusable','false');const p=document.createElementNS(SVGNS,'path');p.setAttribute('d',d);s.appendChild(p);return s;}
