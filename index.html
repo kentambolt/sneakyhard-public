@@ -2043,29 +2043,32 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 .board.trade-mode{border-radius:0}
 .level-strip{display:contents}
 .level-scroll{display:none}
-#game.swap{height:calc(100dvh - 62px);min-height:0;display:flex;flex-direction:column}
-#game.swap .play{display:flex;flex:1;min-height:0;flex-direction:column;align-items:stretch}
-#game.swap .board-wrap{flex:1;min-height:0;width:min(100%,500px);max-width:none;height:auto;container-type:size;display:grid;place-items:center}
-#game.swap .board.trade-mode{--trade-cell:min(calc(100cqw / var(--trade-max-w)),calc(100cqh / var(--trade-max-h)))}
-#game.swap .side{flex:none;width:100%;max-width:440px;margin-inline:auto}
+:is(#game.swap,#game.pivot){height:calc(100dvh - 62px);min-height:0;display:flex;flex-direction:column}
+:is(#game.swap,#game.pivot) .play{display:flex;flex:1;min-height:0;flex-direction:column;align-items:stretch}
+:is(#game.swap,#game.pivot) .board-wrap{flex:1;min-height:0;width:min(100%,500px);max-width:none;height:auto;margin-inline:auto;container-type:size;display:grid;place-items:center}
+:is(#game.swap,#game.pivot) .board.trade-mode{--trade-cell:min(calc(100cqw / var(--trade-max-w)),calc(100cqh / var(--trade-max-h)))}
+:is(#game.swap,#game.pivot) .side{flex:none;width:100%;max-width:440px;margin-inline:auto}
 @media(max-width:780px){
- #game.swap .level-strip{display:flex;align-items:center;gap:4px;min-width:0;flex:none}
- #game.swap .levels:has(.difficulty-group){flex:1;min-width:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;touch-action:pan-x;padding:5px 3px;scrollbar-width:none;overscroll-behavior-x:contain}
- #game.swap .levels .difficulty-group{flex:0 0 auto;flex-wrap:nowrap;max-width:none}
- #game.swap .levels .chip{flex:none}
- #game.swap .level-scroll{display:grid;place-items:center;flex:0 0 30px;width:30px;height:36px;border:0;background:transparent;color:var(--text);padding:4px;cursor:pointer}
- #game.swap .level-scroll:disabled{visibility:hidden}
+ :is(#game.swap,#game.pivot) .level-strip{display:flex;align-items:center;gap:4px;min-width:0;flex:none}
+ :is(#game.swap,#game.pivot) .levels:has(.difficulty-group){flex:1;min-width:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;touch-action:pan-x;padding:5px 3px;scrollbar-width:none;overscroll-behavior-x:contain}
+ :is(#game.swap,#game.pivot) .levels .difficulty-group{flex:0 0 auto;flex-wrap:nowrap;max-width:none}
+ :is(#game.swap,#game.pivot) .levels .chip{flex:none}
+ :is(#game.swap,#game.pivot) .level-scroll{display:grid;place-items:center;flex:0 0 30px;width:30px;height:36px;border:0;background:transparent;color:var(--text);padding:4px;cursor:pointer}
+ :is(#game.swap,#game.pivot) .level-scroll:disabled{visibility:hidden}
  .level-scroll svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
- #game.swap .play{flex:1;min-height:0;justify-content:space-between;align-items:stretch;flex-direction:column}
- #game.swap .board-wrap{flex:1;min-height:0;max-width:none;width:100%;height:auto;container-type:size;display:grid;place-items:center}
- #game.swap .board.trade-mode{--trade-cell:min(calc(100cqw / var(--trade-max-w)),calc(100cqh / var(--trade-max-h)))}
- #game.swap .side{flex:none;width:100%;max-width:440px;margin-inline:auto}
+ :is(#game.swap,#game.pivot) .play{flex:1;min-height:0;justify-content:space-between;align-items:stretch;flex-direction:column}
+ :is(#game.swap,#game.pivot) .board-wrap{flex:1;min-height:0;max-width:none;width:100%;height:auto;container-type:size;display:grid;place-items:center}
+ :is(#game.swap,#game.pivot) .board.trade-mode{--trade-cell:min(calc(100cqw / var(--trade-max-w)),calc(100cqh / var(--trade-max-h)))}
+ :is(#game.swap,#game.pivot) .side{flex:none;width:100%;max-width:440px;margin-inline:auto}
 }
 @media(min-width:500px) and (max-width:780px) and (max-height:500px){
- #game.swap .play{flex-direction:row;align-items:center;justify-content:center}
- #game.swap .board-wrap{height:100%;max-width:calc(100% - var(--compact-side-width) - 12px)}
- #game.swap .side{width:var(--compact-side-width);flex:0 0 var(--compact-side-width)}
+ :is(#game.swap,#game.pivot) .play{flex-direction:row;align-items:center;justify-content:center}
+ :is(#game.swap,#game.pivot) .board-wrap{height:100%;max-width:calc(100% - var(--compact-side-width,220px) - 12px)}
+ :is(#game.swap,#game.pivot) .side{width:var(--compact-side-width,220px);flex:0 0 var(--compact-side-width,220px)}
 }
+
+#game.pivot .board-wrap{aspect-ratio:auto}
+#game.pivot .board{width:min(100cqw,calc(100cqh * var(--pivot-aspect,1.5)));border-radius:0;overflow:visible}
 .guide-title{margin:22px 0 6px;font-size:18px}.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0;list-style:none}.guide-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border-subtle);border-radius:999px;color:var(--text-primary);font-weight:600;text-decoration:none}.guide-links a:hover{border-color:var(--border-strong);background:var(--bg-card-hover)}.guide-links a:focus-visible{outline:2px solid var(--accent-coral);outline-offset:2px}
 </style>
 
@@ -3640,6 +3643,7 @@ function tradeArrowIcon(el,arrows){
     // Arms meet exactly at the token centre (40,40); no optical shift of the icon as a whole.
     el.innerHTML=dirs.length?`<svg viewBox="0 0 80 80" aria-hidden="true" focusable="false" fill="currentColor">${dirs.map(arm).join('')}</svg>`:'';
   }
+  function hasSlidingLevels(){return game.id==='swap'||game.id==='pivot';}
   function renderLevelNav() {
     const nav = $('levels');
     nav.textContent = '';
@@ -3668,15 +3672,15 @@ function tradeArrowIcon(el,arrows){
         const number = game.difficulty ? i + 1 : k + 1;
         btn.textContent = game.levelLabel?game.levelLabel(lv):String(number);
         if(lv.family)btn.setAttribute('data-family',lv.family);
-        btn.setAttribute('aria-label', (game.id==='swap'?`Level ${number}`:game.levelAria?game.levelAria(lv):`${key}, level ${number}`)+(done?' (solved)':''));
-        if(game.difficulty)btn.title=game.id==='swap'?`Level ${number}`:`${key} · ${number}`;
+        btn.setAttribute('aria-label', (hasSlidingLevels()?`Level ${number}`:game.levelAria?game.levelAria(lv):`${key}, level ${number}`)+(done?' (solved)':''));
+        if(game.difficulty)btn.title=hasSlidingLevels()?`Level ${number}`:`${key} · ${number}`;
         if (i === li) btn.setAttribute('aria-current', 'true');
         btn.addEventListener('click', () => loadLevel(i));
         g.appendChild(btn);
       });
       nav.appendChild(g);
     }
-    if(game.id==='swap')requestAnimationFrame(()=>{
+    if(hasSlidingLevels())requestAnimationFrame(()=>{
       nav.querySelector?.('[aria-current="true"]')?.scrollIntoView?.({block:'nearest',inline:'nearest'});
       updateLevelScroll();
     });
@@ -3696,7 +3700,7 @@ function tradeArrowIcon(el,arrows){
   let levelDrag=null,suppressLevelClick=false;
   $('levels').addEventListener('pointerdown',e=>{
     const nav=$('levels');
-    if(game.id==='swap'&&e.pointerType==='mouse'&&e.button===0&&nav.scrollWidth>nav.clientWidth)
+    if(hasSlidingLevels()&&e.pointerType==='mouse'&&e.button===0&&nav.scrollWidth>nav.clientWidth)
       levelDrag={id:e.pointerId,x:e.clientX,left:nav.scrollLeft,moved:false};
   });
   $('levels').addEventListener('pointermove',e=>{
