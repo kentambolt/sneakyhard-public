@@ -2,9 +2,9 @@
   "format": 1,
   "games": 7,
   "levels": 68,
-  "htmlSha256": "d685e7902f5e1764ac4b2cabc18f3278249403e0ab5ea90af5acf9d3405fffdf",
+  "htmlSha256": "76faf964e2ef77c1e3d4a0e336411f8a54fb92f68349b99352a630826fd7947a",
   "localized": {
-    "da/index.html": "f725e2c40247e93b4ca10b1f4f5630c57fae84227d7f87b86489698f2e687476"
+    "da/index.html": "a178491b6528bf44995198de957045c6eb0bcbbbfdd9db32e0f3418c15ba23c3"
   },
   "guides": {
     "square-one/index.html": "75e84bb14d4096ef47d0021a006ed264b21ae443ec509890c1120d8031c2b707",
