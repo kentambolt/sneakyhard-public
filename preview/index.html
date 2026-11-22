@@ -2071,6 +2071,8 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 
 
 
+
+
 /* LIGHT-THEME-BEGIN */
 /* Quiet lilac surfaces; game colours still carry their original meaning. */
 :root{color-scheme:light;--bg-primary:#faf7fb;--bg-secondary:#f1eaf6;--bg-card:#fffdfd;--bg-card-hover:#eee5f5;--accent-coral:#af4662;--accent-coral-hover:#91354f;--accent-purple:#7947cc;--accent-purple-light:#a67bdf;--text-primary:#19162c;--text-secondary:#70647d;--border-subtle:#d5c8e2;--border-strong:#a48abd;--on-accent:#fff;--hole:#f1ebf5;--tile:#e4d8ef;--tile-edge:#b8a3ce;--used-a:#e9def6;--used-b:#f2dce4;--won-a:#b99bdc;--won-b:#dca5b8;--ice-1:#d9eef5;--ice-2:#a4cdda;--ice-edge:#598296;--perm:#c6b6d5;--perm-edge:#9380a6;--perm-mark:#5c4474;--danger:#b02f57;--good:#28794f;--shadow-card:0 9px 28px #6d43820c}
@@ -2261,6 +2263,8 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
 }
 #game.lever.compact .board{width:min(100cqw,calc((100cqh - 26px)*7/2.7));height:auto;aspect-ratio:7/2.7}
 #game.lever.compact .board-wrap{height:auto;aspect-ratio:auto}
+@media(min-width:781px){.app:has(#game:not([hidden])){padding-block:22px}}
+#game .bar{background:#e3d9ed}
 
 /* LIGHT-THEME-END */
 .physical-da{display:none}html[lang="da"] .physical-en{display:none}html[lang="da"] .physical-da{display:inline}#navHowTo[hidden]{display:none}</style>
@@ -2398,9 +2402,9 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
 
     <nav class="variants" id="variants" aria-label="Variants" hidden></nav>
     <div class="level-strip">
-      <button class="level-scroll" id="levelsPrev" type="button" aria-label="Scroll levels left"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
-      <button id="leverLevel" type="button" aria-haspopup="dialog" aria-controls="infoPanel" aria-label="Choose level"></button>
-      <button class="level-scroll" id="levelsNext" type="button" aria-label="Scroll levels right"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+      <button class="level-scroll" id="levelsPrev" type="button" aria-label="Previous puzzle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
+      <button id="leverLevel" type="button" aria-haspopup="dialog" aria-controls="infoPanel" title="Choose level"></button>
+      <button class="level-scroll" id="levelsNext" type="button" aria-label="Next puzzle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
     </div>
 
     <section class="play">
