@@ -2,9 +2,9 @@
   "format": 1,
   "games": 10,
   "levels": 113,
-  "htmlSha256": "96b07bf0f30b22be7c33b9961b5d27a050ae618785377da9d304d1195ae2b9b8",
+  "htmlSha256": "9d280dbb75a60b8e44d565562809d5ee833ea84f6bab5a6d59030cfa7acfb74b",
   "localized": {
-    "da/index.html": "9e48af2cfccb8e39377f9f9916810d589dddac4414a151ca57ca997c889025cb"
+    "da/index.html": "543eab864548526577619033455f95455b231df5054628996a949e9f019ac7fb"
   },
   "guides": {
     "square-one/index.html": "710d2c02584f52abd3caa62b8d08d8e8d2508105dcdbc2d5379f5c5333e8f1da",
@@ -29,9 +29,9 @@
     "da/blind-spot/index.html": "46411900ad1223362cc61948c31ed159b5090c08116a9e55a3487db602eeca43"
   },
   "catalogues": {
-    "games/index.html": "bf996f8dccf1852eac5165a3328131246f4a811b5d1641da6e278df93b3453cd",
-    "da/games/index.html": "d8949f20f8164093758e27dbcb1314a524443934c9642a72029aa2c3037de922",
-    "preview/games/index.html": "ba5a7baa8edf80ebf80e17c0e961d894ee6d372d0466894084f152d626806b6f"
+    "games/index.html": "0aa17dc5a5db551422d874ec21b605469e3b5ba7da027718c27907c6e71f8dc1",
+    "da/games/index.html": "8df27d9508b0ba824a021af604931417692a9154ef0daf32e62bf05b064971ad",
+    "preview/games/index.html": "cb3dac812528bc3f382e8fa12c44b03e2b674d14d6d20932fe6bfb5e5bf046ad"
   },
   "brandAssets": {
     "assets/brand/sneakyhard-original.png": "e0e6498d6690f107d11442fab018cf0e29c2aeb26998c6c4a3252e583d99ea03"

@@ -4875,7 +4875,7 @@ function tradeArrowIcon(el,arrows){
     $('checkAnswer').hidden = !G.checkAnswer;
     $('countUnit').textContent = G.unit || (G.checkAnswer ? 'choices' : 'tiles');
     $('leverReadings').hidden=!G.leverMode;$('leverReadings').classList.toggle('lever-balance-only',!!G.leverMode&&!G.hasLeftTarget);$('leverTask').hidden=!G.leverMode;$('leverTask').textContent=G.taskLabel?G.taskLabel():'';
-    $('clues').setAttribute('aria-label',G.leverMode?'Available weights':'Puzzle controls');
+    const controlsLabel=G.leverMode?'Available weights':'Puzzle controls';$('clues').setAttribute('aria-label',controlsLabel);$('clues').setAttribute('data-i18n-aria-label',controlsLabel);
     const staticClues = $('puzzleClues');
     staticClues.textContent = ''; staticClues.hidden = !(G.essentialInstructions||G.instructions);
     (G.essentialInstructions||G.instructions || []).forEach(text => { const p = document.createElement('p'); p.textContent = text; staticClues.appendChild(p); });
