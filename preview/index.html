@@ -2265,6 +2265,9 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
 #home :is(.hero-scene,.tutorial-board) [fill="#262235"]{fill:var(--hole)}
 #home .hero-scene [fill="url(#mBoard)"]{fill:#eae1f2}
 #game #levelContent .chip.solved::after{content:'';background:#54b997 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 6 2 2 4-4' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat}
+/* Keep the board still when single-use pieces leave the tray, including its last row. */
+#game.square .square-controls{min-height:calc(var(--square-tray-rows,1)*56px - 8px);align-content:start}
+@media(min-width:500px) and (max-height:500px){#game.square .square-preview{width:18px;height:24px}#game.square .square-controls .clue{padding:4px;gap:3px}}
 
 /* LIGHT-THEME-END */
 .physical-da{display:none}html[lang="da"] .physical-en{display:none}html[lang="da"] .physical-da{display:inline}#navHowTo[hidden]{display:none}</style>
