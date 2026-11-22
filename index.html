@@ -2377,6 +2377,45 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
 #game.sip .actions .btn{flex:1;max-width:none}
 @media(max-width:780px){#game.sip{height:calc(100dvh - 30px)}}
 @media(min-width:500px) and (max-height:500px){#game.sip{height:calc(100dvh - 20px)}#game.sip .play{flex-direction:row}#game.sip .side{width:210px;flex:0 0 210px}#game.sip .board-wrap{height:100%}}
+/* Landing is the viewport, not a framed phone mock-up. The catalogue has its own URL. */
+body:has(#home:not([hidden])){padding-inline:0}
+.app:has(#home:not([hidden])){padding:0;width:100%;max-width:none}
+body:not([data-home-view="catalogue"]) #home:not([hidden]){height:100dvh;min-height:0;box-sizing:border-box;padding:0}
+body:not([data-home-view="catalogue"]) #home>:not(.landing-card){display:none}
+body:not([data-home-view="catalogue"]):has(#home:not([hidden]))>:is(.munthe-feedback,.preview-feedback){display:none!important}
+#home .landing-card{border:0;border-radius:0;box-shadow:none;box-sizing:border-box}
+body:not([data-home-view="catalogue"]) #home .landing-card{height:100%;display:flex;flex-direction:column;padding:24px max(24px,calc((100vw - 1160px)/2)) max(24px,env(safe-area-inset-bottom))}
+#home .landing-card .site-header{width:100%;box-sizing:border-box;flex:none}
+body:not([data-home-view="catalogue"]) #home .hero{flex:1;min-height:0;grid-template-rows:1fr auto;align-items:center;padding-top:26px;padding-bottom:0}
+body:not([data-home-view="catalogue"]) #home .home-actions{align-self:end;width:100%}
+body:not([data-home-view="catalogue"]) #home .hero-art{min-height:0;max-height:100%;display:grid;place-items:center}
+body:not([data-home-view="catalogue"]) #home .hero-scene{max-height:100%;object-fit:contain}
+body[data-home-view="catalogue"] .app:has(#home:not([hidden])){max-width:1200px;padding:20px 24px 40px}
+body[data-home-view="catalogue"] #home .landing-card{padding:0;background:none;overflow:visible}
+body[data-home-view="catalogue"] #home .hero,body[data-home-view="catalogue"] #home .landing-wave{display:none}
+body[data-home-view="catalogue"] #home .catalog-note{margin-top:18px}
+body[data-home-view="catalogue"] .catalog-heading h1{font-size:clamp(26px,4vw,36px);line-height:1.1;letter-spacing:-.03em}
+.sip-shelf{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:drop-shadow(0 4px 3px #65518c28)}
+@media(max-width:700px){
+ body:not([data-home-view="catalogue"]) #home .landing-card{padding:16px 24px max(20px,env(safe-area-inset-bottom))}
+ body:not([data-home-view="catalogue"]) #home .hero{padding-top:22px;align-items:stretch}
+ body:not([data-home-view="catalogue"]) #home .hero-copy{flex:none}
+ body:not([data-home-view="catalogue"]) #home .hero-art{flex:1;margin:0 -12px;align-self:stretch}
+ body:not([data-home-view="catalogue"]) #home .hero-scene{height:min(100%,360px);width:100%;min-height:0}
+ body:not([data-home-view="catalogue"]) #home .home-actions{flex:none;margin-top:8px;max-width:none}
+ body[data-home-view="catalogue"] .app:has(#home:not([hidden])){padding:16px 20px 32px}
+}
+@media(max-height:500px) and (min-width:500px){
+ body:not([data-home-view="catalogue"]) #home .landing-card{padding:10px 24px 12px}
+ body:not([data-home-view="catalogue"]) #home .hero{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:'copy art' 'actions art';padding-top:8px;gap:8px 22px}
+ body:not([data-home-view="catalogue"]) #home .hero-title{font-size:28px}
+ body:not([data-home-view="catalogue"]) #home .hero .lede{font-size:14px;margin-top:6px}
+ body:not([data-home-view="catalogue"]) #home .hero-art{margin:0}
+ body:not([data-home-view="catalogue"]) #home .home-actions{gap:6px;margin:0}
+ body:not([data-home-view="catalogue"]) #home .home-action{min-height:38px}
+}
+
+.app:has(#home:not([hidden])){box-sizing:border-box}
 
 /* LIGHT-THEME-END */
 .guide-title{margin:22px 0 6px;font-size:18px}.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0;list-style:none}.guide-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border-subtle);border-radius:999px;color:var(--text-primary);font-weight:600;text-decoration:none}.guide-links a:hover{border-color:var(--border-strong);background:var(--bg-card-hover)}.guide-links a:focus-visible{outline:2px solid var(--accent-coral);outline-offset:2px}
@@ -2417,9 +2456,9 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
     <header class="site-header home-header" id="siteHeader" data-menu-open="false">
       <a class="logo" id="homeLogo" href="./" aria-label="SneakyHard home"><svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><rect x="3" y="3" width="13.5" height="13.5" rx="4" fill="#9086F8"/><rect x="19.5" y="3" width="13.5" height="13.5" rx="4" fill="#FF8578"/><rect x="3" y="19.5" width="13.5" height="13.5" rx="4" fill="#FF8578"/><rect x="19.5" y="19.5" width="13.5" height="13.5" rx="4" fill="#B5ADFF"/><circle cx="26.25" cy="26.25" r="3" fill="#201D2D"/></svg><span class="logo-word">Sneaky<em>Hard</em></span></a>
       <nav class="site-nav" id="siteNav" aria-label="Main">
-        <a class="site-link" id="navGames" href="#games">Games</a>
+        <a class="site-link" id="navGames" href="games/">Games</a>
         <a class="site-link" id="navHowTo" href="#how-to-play">How to play</a>
-        <a class="site-link" id="navAbout" href="#about">About</a>
+        <a class="site-link" id="navAbout" href="#about">About</a><a class="site-link" href="https://munthesystems.dk/systems/feedback/sneakyhard?lang=en" target="_blank" rel="noopener">Feedback &amp; contact</a>
       </nav>
       <div class="header-tools">
         <button class="header-search" id="headerSearch" type="button" aria-label="Search games"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="header-search-text">Search games…</span><kbd class="kbd" aria-hidden="true">Ctrl K</kbd></button>
@@ -2588,7 +2627,7 @@ body:has(#game:not([hidden])) > :is(.munthe-feedback,.preview-feedback){display:
 'use strict';
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./completion-journal'));else root.CompletionDelivery=factory(root.CompletionJournal);})(typeof self!=='undefined'?self:this,function(J){
  const endpoint='https://munthesystems.dk/notifications/v1/events',key='hfeg.completion-delivery.v2',lock='hfeg.completion-delivery.v2';
- function permitted(w){const n=w.navigator,l=w.location,d=w.document,script=d?.querySelector?.('script[data-project="sneakyhard"]');return l?.origin==='https://sneakyhard.com'&&['/','/index.html','/da/','/da/index.html'].includes(l.pathname)&&n?.locks?.request&&n.doNotTrack!=='1'&&w.doNotTrack!=='1'&&n.globalPrivacyControl!==true&&!n.webdriver&&script?.getAttribute('data-analytics')!=='false'&&!!script&&d.visibilityState!=='prerender';}
+ function permitted(w){const n=w.navigator,l=w.location,d=w.document,script=d?.querySelector?.('script[data-project="sneakyhard"]');return l?.origin==='https://sneakyhard.com'&&['/','/index.html','/da/','/da/index.html','/games/','/games/index.html','/da/games/','/da/games/index.html'].includes(l.pathname)&&n?.locks?.request&&n.doNotTrack!=='1'&&w.doNotTrack!=='1'&&n.globalPrivacyControl!==true&&!n.webdriver&&script?.getAttribute('data-analytics')!=='false'&&!!script&&d.visibilityState!=='prerender';}
  function mount(w,allowed){if(!permitted(w))return null;let busy=false,timer=null;const journal=J.create({enabled:true,allowed,read:()=>w.localStorage.getItem(key),write:v=>w.localStorage.setItem(key,v),newId:()=>w.crypto.randomUUID(),now:()=>w.Date.now()}),locked=fn=>w.navigator.locks.request(lock,async()=>permitted(w)?fn():null),schedule=(delay=1000)=>{if(timer!==null)w.clearTimeout(timer);timer=w.setTimeout(()=>{timer=null;void drain();},delay);};
   async function drain(){if(busy||!permitted(w))return;busy=true;try{await w.navigator.locks.request(lock+'.sender',{ifAvailable:true},async acquired=>{if(!acquired)return;const items=await locked(()=>journal.pending());for(const item of items||[]){if(!permitted(w))break;const p=item.payload;try{const response=await w.fetch(endpoint,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),signal:w.AbortSignal.timeout(12000)});if(response.status>=200&&response.status<300){let ack=null;try{ack=await response.json();}catch(_){}if(ack?.accepted===true&&ack.id===p.id&&ack.delivery==='queued'&&typeof ack.duplicate==='boolean'){await locked(()=>journal.accept(p.id));continue;}}
     if([400,401,403,409,410].includes(response.status)){await locked(()=>journal.review(p.id));continue;}const header=response.headers?.get?.('Retry-After'),seconds=header&&/^\d+$/.test(header)?Number(header):0,date=header&&!seconds?Date.parse(header):0,retry=Math.max(seconds*1000,Number.isFinite(date)?date-w.Date.now():0,Math.min(300000,2000*2**Math.min(item.attempts,8))*(.8+w.Math.random()*.4));await locked(()=>journal.defer(p.id,retry));
@@ -3162,12 +3201,13 @@ window.CompletionNotifications=CompletionDelivery.mount(window,[["vej","3-1"],["
   function scan(root=document.body){if(busy||!root)return;busy=true;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(excluded(node))continue;const value=node.nodeValue;if(value===outputs.get(node))continue;const source=node.parentElement?.dataset.originalText??value;originals.set(node,source);const next=translate(source);outputs.set(node,next);if(next!==value)node.nodeValue=next;}
    for(const el of root.querySelectorAll('*')){if(el.closest('script,style,[data-no-translate]'))continue;let cache=attributes.get(el);if(!cache){cache={};attributes.set(el,cache);}for(const name of attrs){const current=el.getAttribute(name);if(current===null)continue;const before=cache[name];if(before&&current===before.output)continue;const source=!before?(el.getAttribute('data-i18n-'+name)??current):current;const next=translate(source);cache[name]={source,output:next};if(current!==next)el.setAttribute(name,next);}}
    for(const select of document.querySelectorAll('[data-language-select]'))select.value=language;
+   const logo=document.getElementById('homeLogo');if(logo&&audience==='public'){const href=language==='da'?'/da/':'/';if(logo.getAttribute('href')!==href)logo.setAttribute('href',href);}
    for(const link of document.querySelectorAll('[data-guide-path]')){const href='/'+(language==='da'?'da/':'')+link.getAttribute('data-guide-path');if(link.getAttribute('href')!==href)link.setAttribute('href',href);}
    for(const button of document.querySelectorAll('[data-language]'))button.setAttribute('aria-pressed',String(button.dataset.language===language));
    for(const link of document.querySelectorAll('a[href*="/systems/feedback/sneakyhard"]')){const context=['game','level'].map(key=>{const value=document.body.getAttribute('data-feedback-'+key);return value&&/^[a-zA-Z0-9_-]{1,64}$/.test(value)?'&'+key+'='+encodeURIComponent(value):'';}).join('');const target='https://munthesystems.dk/systems/feedback/sneakyhard?lang='+language+context;if(link.href!==target)link.href=target;const caption=language==='da'?'Feedback og kontakt':'Feedback & contact';if(link.textContent!==caption)link.textContent=caption;const label=language==='da'?'Send feedback eller kontakt os':'Send feedback or contact us';if(link.getAttribute('aria-label')!==label)link.setAttribute('aria-label',label);}
-   document.documentElement.lang=language;document.title=language==='da'?'SneakyHard · Små logiske spil':'SneakyHard · Small logic puzzles';if(audience==='public'){const canonical='https://sneakyhard.com/'+(language==='da'?'da/':'');const link=document.querySelector('link[rel="canonical"]');if(link)link.href=canonical;for(const[selector,value]of [['meta[name="description"]',seo[language]?.description],['meta[property="og:description"]',seo[language]?.description],['meta[property="og:title"]',document.title],['meta[property="og:url"]',canonical]]){const el=document.querySelector(selector);if(el&&value)el.content=value;}}busy=false;
+   document.documentElement.lang=language;document.title=/\/games\//.test(location.pathname)?(language==='da'?'Alle spil · SneakyHard':'All games · SneakyHard'):(language==='da'?'SneakyHard · Små logiske spil':'SneakyHard · Small logic puzzles');if(audience==='public'){const canonical='https://sneakyhard.com/'+(language==='da'?'da/':'')+(/\/games\//.test(location.pathname)?'games/':'');const link=document.querySelector('link[rel="canonical"]');if(link)link.href=canonical;for(const[selector,value]of [['meta[name="description"]',seo[language]?.description],['meta[property="og:description"]',seo[language]?.description],['meta[property="og:title"]',document.title],['meta[property="og:url"]',canonical]]){const el=document.querySelector(selector);if(el&&value)el.content=value;}}busy=false;
   }
-  function syncURL(){const url=new URL(location.href);if(audience==='public'){url.pathname=language==='da'?'/da/':'/';url.searchParams.delete('lang');}else url.searchParams.set('lang',language);const next=url.pathname+url.search+url.hash;if(next!==location.pathname+location.search+location.hash)history.replaceState(history.state,'',next);}
+  function syncURL(){const url=new URL(location.href);if(audience==='public'){url.pathname=(language==='da'?'/da/':'/')+(/\/games\//.test(url.pathname)?'games/':'');url.searchParams.delete('lang');}else url.searchParams.set('lang',language);const next=url.pathname+url.search+url.hash;if(next!==location.pathname+location.search+location.hash)history.replaceState(history.state,'',next);}
   window.addEventListener('popstate',syncURL);
   function set(locale){if(!['da','en'].includes(locale))return;observer?.disconnect();language=locale;try{localStorage.setItem('hfeg.language',locale);}catch(_){}syncURL();const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode())if(originals.has(node)){node.nodeValue=originals.get(node);outputs.delete(node);}for(const el of document.body.querySelectorAll('*')){const cache=attributes.get(el);if(cache)for(const[name,value]of Object.entries(cache)){el.setAttribute(name,value.source);delete cache[name];}}
    scan();document.dispatchEvent(new CustomEvent('sneakylanguagechange',{detail:language}));observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:attrs});
@@ -3866,11 +3906,13 @@ const LEVELS_SWAP = [
   $('startHere').addEventListener('click',()=>openGame('vej'));$('playTutorial').addEventListener('click',()=>openGame('vej',0));
   // Site header: in-page navigation without touching the game hash routes.
   function closeMenu(){$('siteHeader').setAttribute('data-menu-open','false');$('menuToggle').setAttribute('aria-expanded','false');}
-  function scrollToSection(id,focusTarget){closeMenu();const target=$(id);try{target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}catch(_){target.scrollIntoView();}if(focusTarget&&typeof focusTarget.focus==='function')focusTarget.focus({preventScroll:true});}
+  function cataloguePath(){return location.pathname.startsWith('/preview/')?'/preview/games/':(location.pathname.startsWith('/da/')?'/da/games/':'/games/');}
+  function catalogueNavigation(id){const url=cataloguePath()+(location.search||'')+(id&&id!=='games'?'#'+id:'');location.assign(url);}
+  function scrollToSection(id,focusTarget){closeMenu();if(!/\/games\//.test(location.pathname)){catalogueNavigation(id);return;}const target=$(id);try{target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}catch(_){target.scrollIntoView();}if(focusTarget&&typeof focusTarget.focus==='function')focusTarget.focus({preventScroll:true});}
   for(const[link,section,focus]of[['navGames','games','gameSearch'],['navHowTo','how-to-play','playTutorial'],['navAbout','about','aboutTitle']])$(link).addEventListener('click',e=>{e.preventDefault();scrollToSection(section,focus==='aboutTitle'?null:$(focus));});
-  $('browseGames').addEventListener('click',()=>scrollToSection('games',$('gameSearch')));
+  $('browseGames').addEventListener('click',()=>catalogueNavigation('games'));
   $('headerSearch').addEventListener('click',()=>scrollToSection('games',$('gameSearch')));
-  $('homeLogo').addEventListener('click',e=>{e.preventDefault();closeMenu();window.scrollTo(0,0);});
+  $('homeLogo').addEventListener('click',e=>{e.preventDefault();closeMenu();if(/\/games\//.test(location.pathname)){location.assign(location.pathname.startsWith('/preview/')?'/preview/':location.pathname.startsWith('/da/')?'/da/':'/');return;}window.scrollTo(0,0);});
   $('menuToggle').addEventListener('click',()=>{const open=$('siteHeader').getAttribute('data-menu-open')!=='true';$('siteHeader').setAttribute('data-menu-open',String(open));$('menuToggle').setAttribute('aria-expanded',String(open));});
   document.addEventListener('keydown',e=>{if(!$('home').hidden&&(e.ctrlKey||e.metaKey)&&!e.altKey&&String(e.key).toLowerCase()==='k'){e.preventDefault();scrollToSection('games',$('gameSearch'));}else if(e.key==='Escape'&&$('siteHeader').getAttribute('data-menu-open')==='true'){closeMenu();$('menuToggle').focus();}});$('continueGame').addEventListener('click',()=>{const id=$('continueGame')._game;if(GAMES[id])openGame(id);});
   $('gameJump').addEventListener('change',()=>{if(GAMES[$('gameJump').value])openGame($('gameJump').value);});
@@ -4313,7 +4355,7 @@ function tradeArrowIcon(el,arrows){
       if(G.foldMode)for(const name of ['fold-main','fold-sub']){const span=document.createElement('span');span.className=name;d.appendChild(span);}
       if(G.clockMode && G.B.type[c]) {const title=document.createElement('span'),art=document.createElementNS(SVGNS,'svg'),caption=document.createElement('span');title.className='clock-title';caption.className='clock-caption';art.setAttribute('class','clock-face');art.setAttribute('viewBox','0 0 1 1');art.setAttribute('aria-hidden','true');d.append(title,art,caption);}
       if(G.pivotMode && G.B.type[c]) for(const name of ['pivot-now','pivot-aim']) {const span=document.createElement('span');span.className=name;d.appendChild(span);}
-      if(G.sipMode) {for(const name of ['sip-label','sip-value','sip-sub']) {const span=document.createElement('span');span.className=name;d.appendChild(span);}const art=document.createElementNS(SVGNS,'svg');art.setAttribute('viewBox','0 0 1 1');art.setAttribute('preserveAspectRatio','none');art.setAttribute('class','sip-art');art.setAttribute('aria-hidden','true');for(const [tag,attrs]of [['rect',{x:.22,width:.56,class:'sip-water'}],['path',{d:'M .2 .2 L .2 .82 L .8 .82 L .8 .2',class:'sip-cup'}],['line',{x1:.18,x2:.82,class:'sip-aim-line'}],['path',{class:'sip-pipe'}],['path',{class:'sip-valve'}],['path',{class:'sip-grid'}]]){const el=document.createElementNS(SVGNS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);art.appendChild(el);}d.appendChild(art);mountSipArt(art,c);}
+      if(G.sipMode) {for(const name of ['sip-label','sip-value','sip-sub']) {const span=document.createElement('span');span.className=name;d.appendChild(span);}const art=document.createElementNS(SVGNS,'svg');art.setAttribute('viewBox','0 0 1 1');art.setAttribute('preserveAspectRatio','none');art.setAttribute('class','sip-art');art.setAttribute('aria-hidden','true');for(const [tag,attrs]of [['rect',{x:.22,width:.56,class:'sip-water'}],['path',{d:'M .2 .2 L .2 .82 L .8 .82 L .8 .2',class:'sip-cup'}],['line',{x1:.18,x2:.82,class:'sip-aim-line'}],['path',{class:'sip-pipe'}],['path',{class:'sip-valve'}],['path',{class:'sip-grid'}]]){const el=document.createElementNS(SVGNS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);art.appendChild(el);}d.appendChild(art);mountSipArt(art,c,d);}
       if(G.borderMode) {const span=document.createElement('span');span.className='border-mark';d.appendChild(span);}
       if (G.weightMode) for (const name of ['weight-mark','weight-sub']) {const span=document.createElement('span');span.className=name;d.appendChild(span);}
       if (G.spareMode) for (const name of ['spare-mark','spare-label','spare-sub']) {const span=document.createElement('span');span.className=name;d.appendChild(span);}

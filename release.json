@@ -2,9 +2,9 @@
   "format": 1,
   "games": 7,
   "levels": 70,
-  "htmlSha256": "a85a5a5f628cb3aad2fe663f671f00d5a715ef4fc413bf6da5e9881e2fbe9ed2",
+  "htmlSha256": "c0d6d96fdbb2b5fca51bc981a7f032fc8d635764ebfe99764eaac03efe97fc9b",
   "localized": {
-    "da/index.html": "bbd57fb33d595a6f04a9cbc8437e21ead9253edb0b083d1db9b852e97cb06eaf"
+    "da/index.html": "75117c898330d57e01c8162da8f247b0622a5e8c7a17879ea6e74d98f72301f6"
   },
   "guides": {
     "square-one/index.html": "75e84bb14d4096ef47d0021a006ed264b21ae443ec509890c1120d8031c2b707",
@@ -21,5 +21,10 @@
     "da/crossroads/index.html": "2e03a86e604fe6070a7f5fb0ad15945fb90ef9fc649fce93223a45e8e26ee785",
     "checkpoints/index.html": "9c07cfc9d13472377d77a68431201358a7317c89f4a60b938f9d2c200196026f",
     "da/checkpoints/index.html": "e43ed3224e66b0d891ddebd4663cf55e47b605154ac1d559c683c02217ba0815"
+  },
+  "catalogues": {
+    "games/index.html": "e3c3575f67c602c963ed84952f99c408163c413790de6f129c3d799a5343153a",
+    "da/games/index.html": "d4235446cdd7bd5ad95c589e7881cf6bc2bfa3dc714c8f9a5d0179e895d86c01",
+    "preview/games/index.html": "9ea03ccfc3501ecd0ffe3982a21e4d7ea1d0f085f7a66a82770caa481458893d"
   }
 }
