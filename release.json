@@ -2,24 +2,24 @@
   "format": 1,
   "games": 7,
   "levels": 68,
-  "htmlSha256": "6d63a7261e7445a9c5819a83a7af7d7f0a098601717bae022cb0074db7bfec39",
+  "htmlSha256": "956344ba1066621f26181608370c63f3e16143de33b0a4f2d2bacdee917c7fbb",
   "localized": {
-    "da/index.html": "e51e9ef8cfcfcceef20013dbdf369527aa886ebfb96113c9aa417fddd41a4988"
+    "da/index.html": "1008a599b2620355f4975dd714b9704e387a471e633f11ec94bd1b61b3ebd763"
   },
   "guides": {
-    "square-one/index.html": "20da862dafa4d4c95b62b8a6037ec787e61f3d074088deb9a9b9e980313fed28",
-    "da/square-one/index.html": "d381c547d0c8f88ce02e67071ccadcc367bb5f50e782ad03694a7bd8b2086b4e",
-    "trade-places/index.html": "6db46cc6de3feac425f9d99fa5c74c5f5cd2da88ea351d1e636ef773da693b82",
-    "da/trade-places/index.html": "e091d876b6cbc37a2a7bcbcadb7cb6a9058ea0719a294533ed964d8372e82a6d",
-    "one-path/index.html": "84f60c93633258d8d20fa4b609b7e3f38d38e67124b07439737f06c2b023706b",
-    "da/one-path/index.html": "ce5ead215c619f3952883e433225fc23af285a3c5755e602f4dd08f38307d3af",
-    "lockstep/index.html": "518cc836c5a97ff8b788b105a1fd3cef6e6b85e0b3b626cc6feda02eb6751ed4",
-    "da/lockstep/index.html": "385fe8e424265b1b0123df90834bd13d12b683971cc55ce107cfee6831b5e58a",
-    "black-ice/index.html": "311544ae8f88afbc9344ca88b066e2539b4a9cd6cf16522b6c716b28d0201b39",
-    "da/black-ice/index.html": "3e4119c22d8883c8659c964b1b9e13022515d7818e6822b46b830ed05c7befb5",
-    "crossroads/index.html": "87a549362a812429441dcd7b4298731b05fe0d3597e6c964a227ed8e055a98d4",
-    "da/crossroads/index.html": "b58a125d757b13f2b376d13746a4ce129b212126d0879a7d3a9d7370429d88cb",
-    "checkpoints/index.html": "81bc70b79597b453d3009b1c00ff6b6e488036728b9210989fc547d4994ffe8b",
-    "da/checkpoints/index.html": "527cb0ab2d28522b1a350df97a6034d54c18d0936938ea7a17e28bffe56184d7"
+    "square-one/index.html": "75e84bb14d4096ef47d0021a006ed264b21ae443ec509890c1120d8031c2b707",
+    "da/square-one/index.html": "373197d9f03ff9eaaab63a2c53e9e9a23c907d73bdbcc6aea51a1a1df450aa98",
+    "trade-places/index.html": "d8a6077a2797a2c8c05a80f39d22536bf0231d64eabbdd4a23965215660e862b",
+    "da/trade-places/index.html": "fe2dcdfdbdf79013627059e959fef97fb2b1829ae1a1c3db5c82c00e255ea30b",
+    "one-path/index.html": "f711572d69aa96513073e2ee0a13597dd7ef915ab398234a8039b89832b75244",
+    "da/one-path/index.html": "5bf279ea89442cc735b944220bc810831dd9dc1e422099b649273585f7f89d8e",
+    "lockstep/index.html": "d194c5b585c387be57c548ca413d6fe211d4c7020344f04b74d29995813ce008",
+    "da/lockstep/index.html": "0eb7f5225b7a896a7cf78009180107e8634ed59923748acee40d95c189db26f0",
+    "black-ice/index.html": "59fc497386af5aba45c090c84b25c461be1db9d1010ef79c3b04616a306b90e4",
+    "da/black-ice/index.html": "c81309c1b2c459226680103f47e73e5bb2b6c30f510ca90e478f3b7fcd7bd493",
+    "crossroads/index.html": "25130e192624dc910f05a0a7f4cae28daa53f483d80dff157c5fcfa8dccdd8b2",
+    "da/crossroads/index.html": "2e03a86e604fe6070a7f5fb0ad15945fb90ef9fc649fce93223a45e8e26ee785",
+    "checkpoints/index.html": "9c07cfc9d13472377d77a68431201358a7317c89f4a60b938f9d2c200196026f",
+    "da/checkpoints/index.html": "e43ed3224e66b0d891ddebd4663cf55e47b605154ac1d559c683c02217ba0815"
   }
 }
