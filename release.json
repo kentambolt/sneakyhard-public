@@ -1,10 +1,10 @@
 {
   "format": 1,
   "games": 10,
-  "levels": 113,
-  "htmlSha256": "69b1bf57d8e4faec63887329d0b08d1d06ddf27fe8130690c44582ee93ad481e",
+  "levels": 109,
+  "htmlSha256": "9724fd214da7bfb584071363f30b35093ca36f8d61f782fead1dade35bd622a6",
   "localized": {
-    "da/index.html": "bf5e8d76ca4b2c61491d972a9e0ae34e0106737174df0ab40d4b150b537f12b5"
+    "da/index.html": "1b390d24fb4d6b93eb7cb31b501001d4ecfc9c00e5d687f112e9316e4e270ed9"
   },
   "guides": {
     "square-one/index.html": "710d2c02584f52abd3caa62b8d08d8e8d2508105dcdbc2d5379f5c5333e8f1da",
@@ -21,17 +21,17 @@
     "da/crossroads/index.html": "23d990aeec6b30445b5e18d0afc42323a260c1c7f748d026bd4445282e0b1cfc",
     "checkpoints/index.html": "06aaf68a42942faf28f21a9f822cb88f187f90a400612fb4bc696e1b22028e55",
     "da/checkpoints/index.html": "e358aadca77e46a7f8850d7fa819631c4faeff21d4d303328398d226ae59af38",
-    "one-sip/index.html": "41f81623ef8f03cc6450adf38051060afb3dfab11e04d1a0fcbb92f1801d3e4a",
-    "da/one-sip/index.html": "81a87cbcb93ff3b2097010b911390e78671bdf5343c6e599243bc9ee02f09dd6",
-    "small-lever/index.html": "c50fad9d0ac39cd500bf1f9902c771fd13652a8f899b8ba06d259ee0b89abe39",
-    "da/small-lever/index.html": "ba56544a66aa0db8eba944530f4c2fd01157f3432770a2d57bdffc98d9b95100",
-    "blind-spot/index.html": "7c29bb3849aae79862f97a982464293b181135ea75c9d71555fcc2c54dd65cf4",
-    "da/blind-spot/index.html": "e573dcbb03e8c25da6f785790a97a9527fb8f7ea3cfc52a455fad5016c62a434"
+    "one-sip/index.html": "22b1f6425c5ee9b0cb9c7de57f2fc08a0d1c338f178b519070ac1687ae0b5020",
+    "da/one-sip/index.html": "9a9b90a74c06a123844aba58ab86212c282b5bd50a4add59dfe91a05c3a4a26b",
+    "small-lever/index.html": "711796d582b28433b9b75ff4d1ffae521ffdaee0f4ab08a50315729d48d072ef",
+    "da/small-lever/index.html": "24744a74e2bae901038500b15114300dd3b143cd86b09dc140b6f9cc5ad30f14",
+    "blind-spot/index.html": "6f8e30acee1cc0a5aa9a7859722963ada5589d759d0d0122ce75b796920f9dce",
+    "da/blind-spot/index.html": "e1e6c6fd6ee45456c32a526fabc58214392908c5dc775f661fb646b6569896c7"
   },
   "catalogues": {
-    "games/index.html": "0a007730427461530f503e1bacc12e7d56e575c0556250699e243353cf48089c",
-    "da/games/index.html": "acc7af43a2c97fae81dd3dbed20f75ee01cc52c192f6ae4c7909813df32c107e",
-    "preview/games/index.html": "1c85ac1f5c12df15b4f5848996c05e74913c785152a81a72b3cf882f4fec05e1"
+    "games/index.html": "4946fb9656030719587fd1808c8ddc4b9d28e9c0ec26c92dd9f04881adf95af3",
+    "da/games/index.html": "ee3e219e260bf3c114df091a27d010e5de8129432aa119cc55b0214ed9db75e0",
+    "preview/games/index.html": "22742ec4d36576e3a8efd0f4a85f326b5cbbc5a34944f1c7986135e753a37939"
   },
   "brandAssets": {
     "assets/brand/sneakyhard-original.png": "e0e6498d6690f107d11442fab018cf0e29c2aeb26998c6c4a3252e583d99ea03"
@@ -39,16 +39,16 @@
   "catalogAssets": {
     "assets/thumbnails/square.jpg": "371d0aeb27f92f27b7637bc09f5e01ae6269f0599cb6ebf8a3fe1c76a9b46bd8",
     "assets/thumbnails/swap.jpg": "34c2dfd6ca42a4cb10a5c176640ee9bc59dedd4956daae4571de6004a3e9024c",
-    "assets/thumbnails/sip.jpg": "5c352bd6c3005184092ce5881b20af4cc20971fa5482e080cbfffda5af329fac",
-    "assets/thumbnails/lever.jpg": "66491eda51ab22ddcf85f08534bd8c736717217132fff28865886dd117054105",
+    "assets/thumbnails/sip.jpg": "5ffb92d514551f43d3f584a6a126310d98d9529fe550beeac291607234737b8d",
+    "assets/thumbnails/lever.jpg": "cc9525c73bde70d1a8d9e5a41b6bb97070824887a3131edd04e11f6207268958",
     "assets/thumbnails/vej.jpg": "92c510f62ad471de06bf1da68dde441db0caf2e7c154489f48fcf0ab6bc879d9",
     "assets/thumbnails/takt.jpg": "fa240db2926109710b879375d051ab1dd8085b74d19812e30c6742f6ef72950c",
     "assets/thumbnails/is.jpg": "475def3dfb8e39257b9439481be7e6175e597c8181aadd5618cab80843d79a36",
     "assets/thumbnails/kryds.jpg": "55dcc193402995ae4c0f496f26765020c28f7972cfaf3a175c7c3c1b1f820aa8",
     "assets/thumbnails/post.jpg": "4a1f91c002b01a75cafe0170665fbd3a65184bebf7ca4e5fc39cbd7f3de05633",
     "assets/thumbnails/light.jpg": "962565dac6a583850c1e349dd229fd2cfa6972f06bea22f50ddd6a55a021cdb7",
-    "assets/social/home-en.jpg": "cd42c5f3d906eb6bed685edbab83903613314096bf42c73a4ac0e5970cbfce1a",
-    "assets/social/home-da.jpg": "2bcf3a0ffcc08c7fcd8cf062faf7791baa8a93ec5b10f50180c025512ba30be4",
+    "assets/social/home-en.jpg": "fab71cc5d1e9de5f76b24fc1d07c1c85cfcfc48a0a245ed63d6114b2f1b501e7",
+    "assets/social/home-da.jpg": "050a54a85d19b8c657d7801128e37786f4cb5b8f35c4620136c693954a1b61c3",
     "assets/social/square-en.jpg": "af9da407f1c53e04e146b979200bf163702581de1439bf739d7e7891dc7d18ca",
     "assets/social/square-da.jpg": "1da06b8156c85338f8c6d68d8e679788f76bb5b890c62fcc9a0302caf513c72c",
     "assets/social/swap-en.jpg": "fc75f7a97ebb62c0c5b47c414f44216d56fccc80452805e748531fc25b36969c",
@@ -63,10 +63,10 @@
     "assets/social/kryds-da.jpg": "c1166b78298441cbb9c57f07daa1a69e5a12ea43e5c9bf073948c641bd6513a3",
     "assets/social/post-en.jpg": "04e2a25ea49dad7b94fd5e284361b7f51ed1fc69666d510bc070a2691efd8649",
     "assets/social/post-da.jpg": "f58a930b518dc93c2f80b239ac3e2f6ab23dd4ad35497bf7a2e1e6dcbc826652",
-    "assets/social/sip-en.jpg": "b1a3dea497deb95593e8c876ac4e3e8ee3fab5a288ad73f7608c8313cef7920d",
-    "assets/social/sip-da.jpg": "8ef87f35d3ef8119e8ed5126ff87cdfc526648db6379033522e33393f5656b96",
-    "assets/social/lever-en.jpg": "06b52c2d43f43e95c5087e5154bde0da363ca9fd2f59294034f348a251c51208",
-    "assets/social/lever-da.jpg": "53125b18a01ac6bb47048844d0959b85e7cceb3dd5a1a74ebacb8c720c9e00d3",
+    "assets/social/sip-en.jpg": "c79d4079958ac2ebd91813c70d92feb81cb9a0c4bbb5635a8a31ed4192a09799",
+    "assets/social/sip-da.jpg": "15924175f4d1626eeac0c19b4b90c48388d2a34c1992872b62661c19e79aa553",
+    "assets/social/lever-en.jpg": "6dbb245ad7a42c2d91e6e084c5c2e008ea489df8ae379f5ee92793d2d35a6fab",
+    "assets/social/lever-da.jpg": "7f14c7fd05646d636cf1ef1d5557c507e64136d3349b15b436537daea2dc7ce7",
     "assets/social/light-en.jpg": "280b07d01362fb028dc8d94b68b97e782069007b89c935ae700e739dd3e0cc73",
     "assets/social/light-da.jpg": "6d216ea366a24b010f9ac62a9618afc484694462d6f435d5b115ceea4cf8b0a6"
   }
