@@ -2,9 +2,9 @@
   "format": 1,
   "games": 10,
   "levels": 109,
-  "htmlSha256": "9724fd214da7bfb584071363f30b35093ca36f8d61f782fead1dade35bd622a6",
+  "htmlSha256": "918afbfa3822e322d3c70538d64b48d5480d62f917aacfda41581bb0bf141931",
   "localized": {
-    "da/index.html": "1b390d24fb4d6b93eb7cb31b501001d4ecfc9c00e5d687f112e9316e4e270ed9"
+    "da/index.html": "037a28822d523872d08dcd66194e94776e06ec69351f829f840cfae471fecd40"
   },
   "guides": {
     "square-one/index.html": "710d2c02584f52abd3caa62b8d08d8e8d2508105dcdbc2d5379f5c5333e8f1da",
@@ -21,17 +21,17 @@
     "da/crossroads/index.html": "23d990aeec6b30445b5e18d0afc42323a260c1c7f748d026bd4445282e0b1cfc",
     "checkpoints/index.html": "06aaf68a42942faf28f21a9f822cb88f187f90a400612fb4bc696e1b22028e55",
     "da/checkpoints/index.html": "e358aadca77e46a7f8850d7fa819631c4faeff21d4d303328398d226ae59af38",
-    "one-sip/index.html": "22b1f6425c5ee9b0cb9c7de57f2fc08a0d1c338f178b519070ac1687ae0b5020",
-    "da/one-sip/index.html": "9a9b90a74c06a123844aba58ab86212c282b5bd50a4add59dfe91a05c3a4a26b",
+    "one-sip/index.html": "c35109abacbf2383f7cc5bfb5a8f1016e2084ee1d2bc5401959c8bd6d786c2cf",
+    "da/one-sip/index.html": "7e94637aba53a953dc76e03214c534040feaa0f683ab7810bf6b8d9b09b790c4",
     "small-lever/index.html": "711796d582b28433b9b75ff4d1ffae521ffdaee0f4ab08a50315729d48d072ef",
     "da/small-lever/index.html": "24744a74e2bae901038500b15114300dd3b143cd86b09dc140b6f9cc5ad30f14",
     "blind-spot/index.html": "6f8e30acee1cc0a5aa9a7859722963ada5589d759d0d0122ce75b796920f9dce",
     "da/blind-spot/index.html": "e1e6c6fd6ee45456c32a526fabc58214392908c5dc775f661fb646b6569896c7"
   },
   "catalogues": {
-    "games/index.html": "4946fb9656030719587fd1808c8ddc4b9d28e9c0ec26c92dd9f04881adf95af3",
-    "da/games/index.html": "ee3e219e260bf3c114df091a27d010e5de8129432aa119cc55b0214ed9db75e0",
-    "preview/games/index.html": "22742ec4d36576e3a8efd0f4a85f326b5cbbc5a34944f1c7986135e753a37939"
+    "games/index.html": "76b7781cf6e80b9c3c1aa7c4cde1cc4c1d883f5880a899fee0824da1ffb06f39",
+    "da/games/index.html": "131b439dea86d095f81b3c7c21ece5893344f53a964c628a15c0dc41f8176702",
+    "preview/games/index.html": "8cb7a5b3145c1a1e8eab1ba95b18893351eb0a0a64e16f1d1a0d4a2b0135175f"
   },
   "brandAssets": {
     "assets/brand/sneakyhard-original.png": "e0e6498d6690f107d11442fab018cf0e29c2aeb26998c6c4a3252e583d99ea03"
@@ -39,7 +39,7 @@
   "catalogAssets": {
     "assets/thumbnails/square.jpg": "371d0aeb27f92f27b7637bc09f5e01ae6269f0599cb6ebf8a3fe1c76a9b46bd8",
     "assets/thumbnails/swap.jpg": "34c2dfd6ca42a4cb10a5c176640ee9bc59dedd4956daae4571de6004a3e9024c",
-    "assets/thumbnails/sip.jpg": "5ffb92d514551f43d3f584a6a126310d98d9529fe550beeac291607234737b8d",
+    "assets/thumbnails/sip.jpg": "3a73cf75103877ea1bde8b44b6681cf440e3757efaeef773b0dba77f7507b05b",
     "assets/thumbnails/lever.jpg": "cc9525c73bde70d1a8d9e5a41b6bb97070824887a3131edd04e11f6207268958",
     "assets/thumbnails/vej.jpg": "92c510f62ad471de06bf1da68dde441db0caf2e7c154489f48fcf0ab6bc879d9",
     "assets/thumbnails/takt.jpg": "fa240db2926109710b879375d051ab1dd8085b74d19812e30c6742f6ef72950c",
@@ -47,8 +47,8 @@
     "assets/thumbnails/kryds.jpg": "55dcc193402995ae4c0f496f26765020c28f7972cfaf3a175c7c3c1b1f820aa8",
     "assets/thumbnails/post.jpg": "4a1f91c002b01a75cafe0170665fbd3a65184bebf7ca4e5fc39cbd7f3de05633",
     "assets/thumbnails/light.jpg": "962565dac6a583850c1e349dd229fd2cfa6972f06bea22f50ddd6a55a021cdb7",
-    "assets/social/home-en.jpg": "fab71cc5d1e9de5f76b24fc1d07c1c85cfcfc48a0a245ed63d6114b2f1b501e7",
-    "assets/social/home-da.jpg": "050a54a85d19b8c657d7801128e37786f4cb5b8f35c4620136c693954a1b61c3",
+    "assets/social/home-en.jpg": "4b22f2322febe96127e43526342a6b772580cee457393473bb94b3c8a6b25c50",
+    "assets/social/home-da.jpg": "8d226eb1ec0ea5f0175e7be50f8d9f981d7e0b81b03c950ff151a8a655026544",
     "assets/social/square-en.jpg": "af9da407f1c53e04e146b979200bf163702581de1439bf739d7e7891dc7d18ca",
     "assets/social/square-da.jpg": "1da06b8156c85338f8c6d68d8e679788f76bb5b890c62fcc9a0302caf513c72c",
     "assets/social/swap-en.jpg": "fc75f7a97ebb62c0c5b47c414f44216d56fccc80452805e748531fc25b36969c",
@@ -63,8 +63,8 @@
     "assets/social/kryds-da.jpg": "c1166b78298441cbb9c57f07daa1a69e5a12ea43e5c9bf073948c641bd6513a3",
     "assets/social/post-en.jpg": "04e2a25ea49dad7b94fd5e284361b7f51ed1fc69666d510bc070a2691efd8649",
     "assets/social/post-da.jpg": "f58a930b518dc93c2f80b239ac3e2f6ab23dd4ad35497bf7a2e1e6dcbc826652",
-    "assets/social/sip-en.jpg": "c79d4079958ac2ebd91813c70d92feb81cb9a0c4bbb5635a8a31ed4192a09799",
-    "assets/social/sip-da.jpg": "15924175f4d1626eeac0c19b4b90c48388d2a34c1992872b62661c19e79aa553",
+    "assets/social/sip-en.jpg": "2d5fc4e5f014b56c63e821f881eee8cd715eb42514eb54dfbac497a9265013fc",
+    "assets/social/sip-da.jpg": "2d6fe18682e0cb692bde96854f1a068df0045a46f5d4aa0d0499e6a52cf8f655",
     "assets/social/lever-en.jpg": "6dbb245ad7a42c2d91e6e084c5c2e008ea489df8ae379f5ee92793d2d35a6fab",
     "assets/social/lever-da.jpg": "7f14c7fd05646d636cf1ef1d5557c507e64136d3349b15b436537daea2dc7ce7",
     "assets/social/light-en.jpg": "280b07d01362fb028dc8d94b68b97e782069007b89c935ae700e739dd3e0cc73",
