@@ -2,9 +2,9 @@
   "format": 1,
   "games": 10,
   "levels": 109,
-  "htmlSha256": "31185ee100138be3bbe2d92f79493bd1b5a89dc71c565f1459639cdeb629f241",
+  "htmlSha256": "a94f39b8f990752bc49f0a033132905ee7618d3b1e1b88168047e635a477e86c",
   "localized": {
-    "da/index.html": "31cbe108a96f130d865c15d201a5e159f4e158e677d46b673cc80812bb389be7"
+    "da/index.html": "8bf85799ee076802d2c2def97a33f3bafd1ea62c7836c3987a1446ac10f1dc42"
   },
   "guides": {
     "square-one/index.html": "710d2c02584f52abd3caa62b8d08d8e8d2508105dcdbc2d5379f5c5333e8f1da",
@@ -28,10 +28,14 @@
     "blind-spot/index.html": "6f8e30acee1cc0a5aa9a7859722963ada5589d759d0d0122ce75b796920f9dce",
     "da/blind-spot/index.html": "e1e6c6fd6ee45456c32a526fabc58214392908c5dc775f661fb646b6569896c7"
   },
+  "privacy": {
+    "privacy/index.html": "27ed0389ea768dadf346f9a6ef883a1f14980e5a53237a170ed3817262ca2048",
+    "da/privacy/index.html": "7fe5367a0115467a30b95cef631f496ec3c8c8adf00ce08235d615fcfceeb314"
+  },
   "catalogues": {
-    "games/index.html": "de3950d30eaa297121925213310dff2c2381f2d4338071eb13262dd01318e46f",
-    "da/games/index.html": "99e230752a993e45c8afdfc5ba306f04fd42c8bdc9d26c548d203d5ec43bb1a7",
-    "preview/games/index.html": "5ec8b5d89a091eda52357ce342b5c8ed0921a51a88a1fe250aebbbadf7b30c69"
+    "games/index.html": "c424459c254f230e004380fb61f73a2e49068dbc759f2e7033a37b03f93af153",
+    "da/games/index.html": "dc4e0ae0d6870ec7b6918a98b51d977b8491ee25368795c3183fee51b8bc8f36",
+    "preview/games/index.html": "239512eab89c289d934bb6520d83c58079d5aed1b72094bf98787fe8a434ba06"
   },
   "brandAssets": {
     "assets/brand/sneakyhard-original.png": "e0e6498d6690f107d11442fab018cf0e29c2aeb26998c6c4a3252e583d99ea03"
